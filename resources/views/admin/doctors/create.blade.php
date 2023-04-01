@@ -7,6 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    @include('includes.form')
+    <form action="{{route('admin.doctors.store')}}" method="POST" enctype="multipart/form-data">
+        @include('includes.form')
+    </form>
 </body>
 </html>
