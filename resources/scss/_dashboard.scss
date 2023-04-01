@@ -1,0 +1,14 @@
+#dashboard {
+    background-image: url(../../public/img/medical-bg-scaled.jpg);
+    min-height: calc(100vh - 96px);
+
+    table {
+        tbody {
+            tr:hover {
+                color: $blue-primary;
+                cursor: pointer;
+            }
+        }
+    }
+
+}

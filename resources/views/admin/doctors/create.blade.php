@@ -8,5 +8,6 @@
 </head>
 <body>
     CREATE
+    <a href="{{ route('dashboard')}}" class="btn btn-warning">Dashboard</a>
 </body>
 </html>
