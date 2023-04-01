@@ -35,6 +35,6 @@
                 <button class="btn btn-primary">Iscriviti</button>
             </div>
         </div>
-    
+    {{-- todo inserisci i collegamenti con le relazioni tabelle, mancano i seeder  --}}
 </div>
 @endsection

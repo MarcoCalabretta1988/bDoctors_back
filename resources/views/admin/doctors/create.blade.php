@@ -7,10 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    CREATE
-    <a href="{{ route('dashboard')}}" class="btn btn-warning">Dashboard</a>
-    <form action="{{route('admin.doctors.store')}}" method="POST" enctype="multipart/form-data">
-        @include('includes.form')
-    </form>
+    <div class="bg-img">
+
+        <form action="{{route('admin.doctors.store')}}" method="POST" enctype="multipart/form-data">
+            @include('includes.form')
+        </form>
+        <a href="{{ route('dashboard')}}" class="btn btn-warning">Dashboard</a>
+    </div>
 </body>
 </html>
