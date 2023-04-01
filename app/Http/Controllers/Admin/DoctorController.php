@@ -7,6 +7,7 @@ use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DoctorController extends Controller
 {
@@ -24,15 +25,24 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.doctors.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Doctor $doctor)
     {
-        //
+        $data = $request->all();
+        $img_path = Storage::put('uploads', $data['photo']);
+        $data['photo'] = $img_path;
+        $doctor = new Doctor();
+
+
+        $doctor->fill($data);
+        $doctor->save();
+
+        return view('welcome', compact('doctor'));
     }
 
     /**

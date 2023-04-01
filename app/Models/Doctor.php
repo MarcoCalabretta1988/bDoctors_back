@@ -11,7 +11,7 @@ class Doctor extends Model
 {
     use HasFactory;
     //corelations user
-    protected $fillabale = ['phone', 'address', 'curriculum', 'photo'];
+    protected $fillable = ['address', 'photo', 'phone', 'curriculum'];
     public function user()
     {
         return $this->hasOne(User::class);
