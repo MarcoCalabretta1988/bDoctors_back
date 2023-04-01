@@ -1,8 +1,24 @@
 @extends('layouts.app')
+@section('title','Dashboard')
 @section('content')
 
 <section id='dashboard'>
     <div class="container py-5">
+        <div class="row">
+            <div class="col-4">
+               <div class="news-info b-border p-3">
+                <div>
+                    <h1 class="text-center p-blu t-shadow mb-4">Buongiorno </h1>
+                </div>
+                <div class="b-border p-5">
+
+                    <div>Hai <strong>0</strong> nuovi Messaggi</div>
+                    <div>Hai <strong>2</strong> nuove Recensioni</div>
+                </div>
+               </div>
+                </div>
+            <div class="col-8">
+                <h1 class="agend-title t-shadow b-border">Agenda del: {{date('d/m/Y',strtotime("now"))}}</h1>
         <table class="table table-light">
             <thead>
               <tr>
@@ -79,6 +95,9 @@
               </tr>
             </tbody>
           </table>
+            </div>
+        </div>
+        
     </div>
 </section>
 @endsection

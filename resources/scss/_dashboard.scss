@@ -2,11 +2,25 @@
     background-image: url(../../public/img/medical-bg-scaled.jpg);
     min-height: calc(100vh - 96px);
 
+    .news-info {
+        background-color: white;
+        height: 310px;
+    }
+
+    .agend-title {
+        text-align: center;
+        padding: 20px 0;
+        background-color: white;
+        color: $blue-primary;
+
+    }
+
     table {
         tbody {
             tr:hover {
                 color: $blue-primary;
                 cursor: pointer;
+                text-shadow: 1px 1px #000000;
             }
         }
     }
