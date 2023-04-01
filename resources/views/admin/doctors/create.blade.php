@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    CREATE
+    @include('includes.form')
 </body>
 </html>
