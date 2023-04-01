@@ -8,7 +8,7 @@
             {{-- adress --}}
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Indirizzo</label>
-                <input type="text" class="form-control" id="address" name="address" placeholder="inserisci l'indirizzo, o la struttura del tuo luogo di lavoro">
+                <input type="text" required class="form-control" id="address" name="address" placeholder="inserisci l'indirizzo, o la struttura del tuo luogo di lavoro">
             </div>
             {{-- photo --}}
             <div class="d-flex">
