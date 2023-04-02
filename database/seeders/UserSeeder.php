@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Doctor;
 use App\Models\User;
 use Faker\Generator;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,13 +15,14 @@ class UserSeeder extends Seeder
      */
     public function run(Generator $faker): void
     {
+        $doctor = Doctor::all();
         for ($i = 0; $i <= 5; $i++) {
             $user = new User();
 
             $user->name =  $faker->name();
             $user->email = $faker->email();
             $user->password = bcrypt('password');
-
+            $user->doctor_id = $doctor->random()->id;
             $user->save();
         }
     }
