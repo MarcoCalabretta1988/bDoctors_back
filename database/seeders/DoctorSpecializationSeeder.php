@@ -18,7 +18,7 @@ class DoctorSpecializationSeeder extends Seeder
         $specializations = Specialization::all();
 
         foreach ($doctors as $doctor) {
-            $specializationNum = rand(0, 3);
+            $specializationNum = rand(1, 3);
             $randspecialization = $specializations->random($specializationNum);
 
             foreach ($randspecialization as $specialization) {
