@@ -16,31 +16,31 @@ class DoctorSeeder extends Seeder
 
         $doctors = [
             [
-                'address' => "via Michele coppino 12 Torino",
+                'address' => "via Michele coppino 12, Torino",
                 'phone' => "3490391382",
                 'curriculum' => "",
                 'photo' => ""
             ],
             [
-                'address' => "via Dolomiti 11 Milano",
+                'address' => "via Dolomiti 11, Milano",
                 'phone' => "3490391345",
                 'curriculum' => "",
                 'photo' => ""
             ],
             [
-                'address' => "via Roma 143 Napoli",
+                'address' => "via Roma 143, Napoli",
                 'phone' => "3490391382",
                 'curriculum' => "",
                 'photo' => ""
             ],
             [
-                'address' => "via Pippo 15 Roma",
+                'address' => "via Pippo 15, Roma",
                 'phone' => "3490391382",
                 'curriculum' => "",
                 'photo' => ""
             ],
             [
-                'address' => "via Marco Polo Catanzaro",
+                'address' => "via Marco Polo, Catanzaro",
                 'phone' => "3490391382",
                 'curriculum' => "",
                 'photo' => ""
