@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Sponsored extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['cost', 'duration', 'name'];
     public function doctors()
     {
-        return $this->hasMany(Doctor::class);
+        return $this->belongsToMany(Doctor::class);
     }
 }

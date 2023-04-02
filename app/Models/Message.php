@@ -10,7 +10,7 @@ class Message extends Model
     use HasFactory;
 
     //correlation whith doctors 
-
+    protected $fillable = ['email', 'text', 'name'];
     public function doctor()
     {
         return $this->belongsTo(Doctor::class);

@@ -33,16 +33,16 @@ class Doctor extends Model
 
     public function votes()
     {
-        return $this->hasMany(Vote::class);
+        return $this->belongsToMany(Vote::class);
     }
     //corelations many to many sponsoreds
     public function sponsoreds()
     {
-        return $this->hasMany(Sponsored::class);
+        return $this->belongsToMany(Sponsored::class);
     }
     //corelations many to many specializations
     public function specializations()
     {
-        return $this->hasMany(Specialization::class);
+        return $this->belongsToMany(Specialization::class);
     }
 }
