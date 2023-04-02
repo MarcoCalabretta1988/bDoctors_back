@@ -23,3 +23,7 @@ use Illuminate\Support\Facades\Route;
 //rotte dottori api 
 
 Route::get('/doctors', [DoctorController::class, 'index']);
+
+//show single doctor 
+
+Route::get('/doctors/{doctor}', [DoctorController::class, 'show']);

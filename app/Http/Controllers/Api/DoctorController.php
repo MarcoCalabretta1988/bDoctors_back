@@ -31,7 +31,16 @@ class DoctorController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $doctors = Doctor::find($id);
+        $doctors->user;
+        $doctors->review;
+        $doctors->votes;
+        $doctors->sponsoreds;
+        $doctors->specializations;
+
+        if (!$doctors) return response(null, 404);
+
+        return response()->json($doctors);
     }
 
     /**
