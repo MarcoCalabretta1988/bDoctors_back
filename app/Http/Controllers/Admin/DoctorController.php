@@ -39,6 +39,11 @@ class DoctorController extends Controller
             $img_path = Storage::put('uploads', $data['photo']);
             $data['photo'] = $img_path;
         }
+
+        if (Arr::exists($data, 'curriculum')) {
+            $img_path = Storage::put('uploads', $data['curriculum']);
+            $data['curriculum'] = $img_path;
+        }
         $doctor = new Doctor();
 
 
