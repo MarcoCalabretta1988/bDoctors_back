@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,8 +35,10 @@ class DoctorController extends Controller
     public function store(Request $request, Doctor $doctor)
     {
         $data = $request->all();
-        $img_path = Storage::put('uploads', $data['photo']);
-        $data['photo'] = $img_path;
+        if (Arr::exists($data, 'photo')) {
+            $img_path = Storage::put('uploads', $data['photo']);
+            $data['photo'] = $img_path;
+        }
         $doctor = new Doctor();
 
 
