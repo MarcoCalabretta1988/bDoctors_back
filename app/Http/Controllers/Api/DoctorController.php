@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use App\Models\Specialization;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DoctorController extends Controller
@@ -24,7 +25,15 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $user = new User();
+        $user->fill($data);
+
+        $user->password = bcrypt('password');
+
+        $user->save();
+        return response(null, 204);
     }
 
     /**
