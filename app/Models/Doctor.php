@@ -10,7 +10,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Doctor extends Model
 {
     use HasFactory;
-    //corelations user
+    //protected
+
+    protected $with = ['user'];
+
+    //fillable
     protected $fillable = ['address', 'photo', 'phone', 'curriculum'];
     public function user()
     {

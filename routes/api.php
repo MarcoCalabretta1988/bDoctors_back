@@ -27,3 +27,6 @@ Route::get('/doctors', [DoctorController::class, 'index']);
 //show single doctor 
 
 Route::get('/doctors/{doctor}', [DoctorController::class, 'show']);
+
+//filter 
+Route::get('/specializations/{id}/doctors', [DoctorController::class, 'specializationDoctorIndex']);

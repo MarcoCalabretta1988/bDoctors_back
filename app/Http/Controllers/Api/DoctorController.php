@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Doctor;
+use App\Models\Specialization;
 use Illuminate\Http\Request;
 
 class DoctorController extends Controller
@@ -13,7 +14,7 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::orderBy('updated_at', 'DESC')->with('user', 'review', 'votes', 'sponsoreds', 'specializations')->get();
+        $doctors = Doctor::orderBy('updated_at', 'DESC')->with('review', 'votes', 'sponsoreds', 'specializations')->get();
 
         return response()->json($doctors);
     }
@@ -32,7 +33,7 @@ class DoctorController extends Controller
     public function show(string $id)
     {
         $doctors = Doctor::find($id);
-        $doctors->user;
+
         $doctors->review;
         $doctors->votes;
         $doctors->sponsoreds;
@@ -57,5 +58,17 @@ class DoctorController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    //filter by specialization 
+
+    public function specializationDoctorIndex(string $id)
+    {
+        $specialization = Specialization::find($id);
+
+        if (!$specialization) return response(null, 404);
+        $doctors = $specialization->doctors->all();
+
+        return response()->json(compact('specialization'));
     }
 }
