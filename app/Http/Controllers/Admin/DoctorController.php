@@ -17,8 +17,13 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $user = Auth::user()->name;
-        return view('admin.doctors.index', compact('user'));
+        $name = Auth::user()->name;
+        $user_id = Auth::user()->doctor_id;
+        $address = Doctor::where('id', $user_id)->pluck('address');
+        $phone = Doctor::where('id', $user_id)->pluck('phone');
+        dd($phone);
+        $img = Doctor::where('id', $user_id)->pluck('photo');
+        return view('admin.doctors.index', compact('name', 'address', 'phone', 'img'));
     }
 
     /**
@@ -50,7 +55,7 @@ class DoctorController extends Controller
         $doctor->fill($data);
         $doctor->save();
 
-        return view('welcome', compact('doctor'));
+        return view('dashboard', compact('doctor'));
     }
 
     /**
