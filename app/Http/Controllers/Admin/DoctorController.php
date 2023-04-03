@@ -22,7 +22,6 @@ class DoctorController extends Controller
         $user_id = Auth::user()->doctor_id;
         $address = Doctor::where('id', $user_id)->pluck('address');
         $phone = Doctor::where('id', $user_id)->pluck('phone');
-        dd($phone);
         $img = Doctor::where('id', $user_id)->pluck('photo');
         return view('admin.doctors.index', compact('name', 'address', 'phone', 'img'));
     }
@@ -68,7 +67,7 @@ class DoctorController extends Controller
         if (Arr::exists($data, 'specialization')) {
             $doctor->specializations()->attach($data['specialization']);
         }
-
+        // mbe ??????
         return view('dashboard', compact('doctor'));
     }
 
