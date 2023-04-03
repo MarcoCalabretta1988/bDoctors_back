@@ -17,12 +17,10 @@ class DoctorController extends Controller
      */
     public function index()
     {
+        $doctor = Auth::user()->doctor;
         $name = Auth::user()->name;
-        $user_id = Auth::user()->doctor_id;
-        $address = Doctor::where('id', $user_id)->pluck('address');
-        $phone = Doctor::where('id', $user_id)->pluck('phone');
-        $img = Doctor::where('id', $user_id)->pluck('photo');
-        return view('admin.doctors.index', compact('name', 'address', 'phone', 'img', 'user_id'));
+
+        return view('admin.doctors.index', compact('name', 'doctor'));
     }
 
     /**
@@ -76,7 +74,6 @@ class DoctorController extends Controller
      */
     public function edit(Doctor $doctor)
     {
-
     }
 
     /**
