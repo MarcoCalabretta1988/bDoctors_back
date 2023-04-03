@@ -80,4 +80,14 @@ class DoctorController extends Controller
 
         return response()->json(compact('specialization'));
     }
+
+    //pass specialization in route 
+
+    public function specialization()
+    {
+
+        $specialization = Specialization::all();
+
+        return response()->json($specialization);
+    }
 }
