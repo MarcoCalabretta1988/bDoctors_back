@@ -76,7 +76,7 @@ class DoctorController extends Controller
      */
     public function edit(Doctor $doctor)
     {
-        //
+
     }
 
     /**

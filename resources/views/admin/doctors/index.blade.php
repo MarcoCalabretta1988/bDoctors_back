@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-3">
 
-                        <img src="{{ asset('storage/'. $img[0])}}" alt="{{ $name }}">
+                        <img src="{{ asset('storage/'. $img[0])}}" alt="{{ $name }}" class="img-fluid">
 
                     </div>
                    
