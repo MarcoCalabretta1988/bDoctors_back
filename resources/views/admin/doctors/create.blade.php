@@ -12,7 +12,6 @@
         <form action="{{route('admin.doctors.store')}}" method="POST" enctype="multipart/form-data">
             @include('includes.form')
         </form>
-        <a href="{{ route('dashboard')}}" class="btn btn-warning">Dashboard</a>
     </div>
 </body>
 </html>
