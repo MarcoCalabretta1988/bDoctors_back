@@ -34,8 +34,6 @@ Route::middleware('auth')->prefix('admin/doctors')->name('admin.doctors.')->grou
 
     Route::get('/create', [DoctorController::class, 'create'])->name('create');
     Route::post('/', [DoctorController::class, 'store'])->name('store');
-
-
 });
 
 
