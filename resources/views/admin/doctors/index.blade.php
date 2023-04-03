@@ -18,7 +18,7 @@
             </div>
             <div class="col-12 d-flex justify-content-between align-items-center">
                 <div class="py-5">Media Voto: <span class="text-warning">&#9733; &#9733; &#9733; &#9734; &#9734;</span></div>
-                <a href="{{ route('admin.doctors.index')}}" class="btn btn-warning">Modifica</a>
+                <a href="{{ route('admin.doctors.edit' , $doctor->id)}}" class="btn btn-warning">Modifica</a>
             </div>
            </div>
         </div>

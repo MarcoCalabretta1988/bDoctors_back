@@ -31,10 +31,16 @@
                 <label for="exampleFormControlInput1" class="form-label">Numero di Recapito</label>
                 <input type="text" class="form-control" id="phone" name="phone" placeholder="il tuo numero di telefono">
             </div>
+            <div class="d-flex">
+                @foreach ($specializations as $specialization)
+                <label for="{{$specialization->name}}">{{$specialization->name}}</label>
+                <input type="checkbox" name="specialization[]" id="{{$specialization->id}}" value="{{$specialization->id}}" class="me-4">
+                @endforeach
+            </div>
             <div class="text-center my-2">
                 <button class="btn btn-primary">Iscriviti</button>
             </div>
         </div>
-    {{-- todo inserisci i collegamenti con le relazioni tabelle, mancano i seeder  --}}
+        
 </div>
 @endsection
