@@ -27,8 +27,13 @@ Route::get('/doctors', [DoctorController::class, 'index']);
 //show single doctor 
 
 Route::get('/doctors/{doctor}', [DoctorController::class, 'show']);
-
+// reegistration api
 Route::post('/store', [DoctorController::class, 'store']);
+
+
+//specializations
+
+Route::get('/specializations', [DoctorController::class, 'specialization']);
 
 //filter 
 Route::get('/specializations/{id}/doctors', [DoctorController::class, 'specializationDoctorIndex']);
