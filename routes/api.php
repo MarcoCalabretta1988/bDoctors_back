@@ -30,7 +30,7 @@ Route::get('/doctors/{doctor}', [DoctorController::class, 'show']);
 // reegistration api
 Route::post('/store', [DoctorController::class, 'store']);
 
-Route::post('/doctor/registration', [DoctorController::class, 'doctorRegistration']);
+
 //specializations
 
 Route::get('/specializations', [DoctorController::class, 'specialization']);
