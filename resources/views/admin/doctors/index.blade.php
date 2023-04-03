@@ -12,18 +12,7 @@
                         <img src="{{ $img[0] }}" alt="{{ $name }}">
 
                     </div>
-                    <div class="col-9 d-flex flex-column justify-content-center t-shadow">
-                        <div>Nome: {{ ucfirst($user) }}</div>
-                        <div class="py-3">Indirizzo: Via fagioli 7</div>
-                        <div>Telefono: 349300699</div>
-                    </div>
-                    <div class="col-12 d-flex justify-content-between align-items-center">
-                        <div class="py-5">Media Voto: <span class="text-warning">&#9733; &#9733; &#9733; &#9734;
-                                &#9734;</span></div>
-                        <a href="{{ route('admin.doctors.edit', $doctor->id) }}" class="btn btn-warning">Modifica</a>
-                    </div>
-                </div>
-            </div>
+                   
             <div class="col-9 d-flex flex-column justify-content-center t-shadow">
                 <div>Nome: {{ ucfirst($name) }}</div>
                 <div class="py-3">Indirizzo: {{ $address[0] }}</div>
@@ -32,7 +21,7 @@
             <div class="col-12 d-flex justify-content-between align-items-center">
                 <div class="py-5">Media Voto: <span class="text-warning">&#9733; &#9733; &#9733; &#9734; &#9734;</span>
                 </div>
-                <a href="{{ route('admin.doctors.edit', $doctor->id) }}" class="btn btn-warning">Modifica</a>
+                <a href="{{ route('admin.doctors.edit', $user_id) }}" class="btn btn-warning">Modifica</a>
             </div>
         </div>
         </div>

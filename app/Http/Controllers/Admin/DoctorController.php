@@ -22,7 +22,7 @@ class DoctorController extends Controller
         $address = Doctor::where('id', $user_id)->pluck('address');
         $phone = Doctor::where('id', $user_id)->pluck('phone');
         $img = Doctor::where('id', $user_id)->pluck('photo');
-        return view('admin.doctors.index', compact('name', 'address', 'phone', 'img'));
+        return view('admin.doctors.index', compact('name', 'address', 'phone', 'img', 'user_id'));
     }
 
     /**
