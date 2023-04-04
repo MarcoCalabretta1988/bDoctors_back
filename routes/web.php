@@ -40,4 +40,10 @@ Route::middleware('auth')->prefix('admin/doctors')->name('admin.doctors.')->grou
 
 require __DIR__ . '/auth.php';
 
+//Doctors Route
+
 Route::resource('admin/doctors', App\Http\Controllers\Admin\DoctorController::class, ['as' => 'admin']);
+
+//Message Route
+
+Route::resource('admin/messages', App\Http\Controllers\Admin\MessageController::class, ['as' => 'admin']);
