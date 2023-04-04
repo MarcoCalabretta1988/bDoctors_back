@@ -37,6 +37,23 @@ class DoctorController extends Controller
      */
     public function store(Request $request, Doctor $doctor)
     {
+        $request->validate(
+            [
+                'address' => 'required|string',
+                'phone' => 'required|unique|min:6',
+                'curriculum' => 'nullable|mimetipe: png, jpg, jpeg',
+                'photo' => 'nullable|mimetipe: png, jpg, jpeg'
+            ],
+            [
+                'address.required' => "l'indirizzo è obbligatiorio",
+                'address.string' => "il capo inserito è errato",
+                'phone.required' => "il numero di recapito è obbligatorio",
+                'phone.unique' => "il Numero è già stato utilizzato",
+                'phone.min' => "il numero deve contenere almeno 6 caratteri",
+                'curriculum.mimetipe' => "il file inserito per il curriculum non è valido",
+                'photo.mimetipe' => "il file inserito per la foto non è valido",
+            ]
+        );
         $data = $request->all();
         if (Arr::exists($data, 'photo')) {
             $img_path = Storage::put('uploads', $data['photo']);
@@ -84,6 +101,24 @@ class DoctorController extends Controller
      */
     public function update(Request $request, Doctor $doctor)
     {
+        $request->validate(
+            [
+                'address' => 'required|string',
+                'phone' => 'required|unique|min:6',
+                'curriculum' => 'nullable|mimetipe: png, jpg, jpeg',
+                'photo' => 'nullable|mimetipe: png, jpg, jpeg'
+            ]
+            ,
+            [
+                'address.required' => "l'indirizzo è obbligatiorio",
+                'address.string' => "il capo inserito è errato",
+                'phone.required' => "il numero di recapito è obbligatorio",
+                'phone.unique' => "il Numero è già stato utilizzato",
+                'phone.min' => "il numero deve contenere almeno 6 caratteri",
+                'curriculum.mimetipe' => "il file inserito per il curriculum non è valido",
+                'photo.mimetipe' => "il file inserito per la foto non è valido",
+            ]
+        );
         $data = $request->all();
         if ($doctor->photo && array_search('photo', $data)) {
             Storage::delete($doctor->photo);
