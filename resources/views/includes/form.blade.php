@@ -30,26 +30,28 @@
                         placeholder="inserisci una foto del tuo curriculum">
                 </div>
             </div>
-        </div>
-        {{-- phone --}}
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Numero di Recapito</label>
-            <input type="text" class="form-control" id="phone" name="phone"
-                value="{{ old('phone', $doctor->phone) }}" placeholder="il tuo numero di telefono">
-        </div>
-        <div class="d-flex">
-            @foreach ($specializations as $specialization)
-                <label for="{{ $specialization->name }}">{{ $specialization->name }}</label>
-                <input type="checkbox" class="form-check-input me-3" name="specialization[]" id="{{ $specialization->id }}"
-                    @checked(in_array($specialization->id, $doctor_spec)) value="{{ $specialization->id }}" class="me-4">
-            @endforeach
-        </div>
-        <div class="text-end mt-3">
-            @yield('my-button')
-            <button class="btn btn-primary">prova</button>
-            <a href="{{ route('dashboard') }}" class="btn btn-warning">Dashboard</a>
+            {{-- phone --}}
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Numero di Recapito</label>
+                <input type="text" class="form-control" id="phone" name="phone"
+                    value="{{ old('phone', $doctor->phone) }}" placeholder="il tuo numero di telefono">
+            </div>
+            <div class="d-flex">
+                @foreach ($specializations as $specialization)
+                    <label for="{{ $specialization->name }}">{{ $specialization->name }}</label>
+                    <input type="checkbox" class="form-check-input me-3" name="specialization[]"
+                        id="{{ $specialization->id }}" @checked(in_array($specialization->id, $doctor_spec)) value="{{ $specialization->id }}"
+                        class="me-4">
+                @endforeach
+            </div>
+            <div class="text-end mt-3">
+                @yield('my-button')
+                <button class="btn btn-primary">prova</button>
+                <a href="{{ route('dashboard') }}" class="btn btn-warning">Dashboard</a>
+            </div>
         </div>
     </div>
+
 
     </div>
 @endsection
