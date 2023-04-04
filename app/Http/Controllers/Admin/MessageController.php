@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Message;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -12,7 +13,8 @@ class MessageController extends Controller
      */
     public function index()
     {
-        //
+        $messages = Message::orderBy('updated_at', 'DESC')->simplePaginate(10);
+        return view('admin.messages.index', compact('messages'));
     }
 
     /**
@@ -34,9 +36,9 @@ class MessageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Message $message)
     {
-        //
+        return view('admin.messages.show', compact('message'));
     }
 
     /**
@@ -58,8 +60,9 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Message $message)
     {
-        //
+        $message->delete();
+        return to_route('admin.messages.index')->with('type', 'success')->with('msg', 'Messaggio eliminato con successo');
     }
 }

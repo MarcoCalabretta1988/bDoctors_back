@@ -20,6 +20,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('admin.doctors.index')}}">{{ __('Profilo') }}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('admin.messages.index')}}">{{ __('Messaggi') }}</a>
+                </li>
                 @endauth
             </ul>
 

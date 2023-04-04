@@ -1,0 +1,56 @@
+@extends('layouts.app')
+@section('title', 'Messagges')
+@section('content')
+
+    <section id='messages'>
+      <div class="container py-5">
+        @if(session('msg'))
+  <div class="alert alert-{{session('type') ?? 'info'}} " >
+            {{ session('msg')}}
+  </div>
+@endif
+        
+        
+            <table class="table table-dark table-striped ">
+                <thead>
+                  <tr>
+                    <th scope="col">Nome:</th>
+                    <th scope="col">Email:</th>
+                    <th scope="col">Testo:</th>
+                    <th scope="col">Inviato:</th> 
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    @foreach ($messages as $message)
+                    <tr>    
+                    <th scope="row">{{$message->name}}</th>
+                    <td>{{$message->email}}</td>
+                    <td>{{$message->text}}</td>
+                    <td>{{$message->created_at}}</td>
+    
+                    <td>
+                      <div class="button-box d-flex justify-content-end">
+                        <a href="{{route('admin.messages.show',$message->id)}}" class="btn btn-sm btn-primary me-3"><i class="fa-sharp fa-solid fa-eye"></i></a>
+                       
+              
+                         <form action="{{ route('admin.messages.destroy' , $message->id)}}" method="POST" class="delete-form">
+                          @method('DELETE')
+                          @csrf
+                          <button  technology="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                         </form>
+                      </div>
+                      </td>
+                  </tr>
+                    @endforeach
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-end align-items-center">
+            
+                @if($messages->hasPages())
+                {{ $messages->links()}}
+                @endif
+              </div>
+            </div>
+    </section>
+@endsection
