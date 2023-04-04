@@ -94,7 +94,8 @@ class DoctorController extends Controller
     public function edit(Doctor $doctor)
     {
         $specializations = Specialization::all();
-        return view('admin.doctors.edit', compact('doctor', 'specializations'));
+        $doctor_spec = $doctor->specializations->pluck('id')->toArray();
+        return view('admin.doctors.edit', compact('doctor', 'specializations', 'doctor_spec'));
     }
 
     /**
@@ -105,42 +106,38 @@ class DoctorController extends Controller
         // $request->validate(
         //     [
         //         'address' => 'required|string',
-        //         'phone' => 'required|min:6',
-        //         'curriculum' => 'nullable|mimes: png, jpg, jpeg',
-        //         'photo' => 'nullable|mimes: png, jpg, jpeg'
-        //     ],
-        // [
-        //     'address.required' => "l'indirizzo è obbligatiorio",
-        //     'address.string' => "il capo inserito è errato",
-        //     'phone.required' => "il numero di recapito è obbligatorio",
-        //     'phone.unique' => "il Numero è già stato utilizzato",
-        //     'phone.min' => "il numero deve contenere almeno 6 caratteri",
-        //     'curriculum.mimetipe' => "il file inserito per il curriculum non è valido",
-        //     'photo.mimetipe' => "il file inserito per la foto non è valido",
-        // ]
-        //);
+        //         'phone' => 'required|unique:doctors|min:6',
+        //         'curriculum' => 'nullable',
+        //         'photo' => 'nullable'
+        //     ]
+        //     ,
+        //     [
+        //         'address.required' => "l'indirizzo è obbligatiorio",
+        //         'address.string' => "il capo inserito è errato",
+        //         'phone.required' => "il numero di recapito è obbligatorio",
+        //         'phone.unique' => "il Numero è già stato utilizzato",
+        //         'phone.min' => "il numero deve contenere almeno 6 caratteri",
+        //         'curriculum.mimetipe' => "il file inserito per il curriculum non è valido",
+        //         'photo.mimetipe' => "il file inserito per la foto non è valido",
+        //     ]
+        // );
         $data = $request->all();
         if (Arr::exists($data, 'photo')) {
-            if ($doctor->photo) {
-                $img_path = Storage::put('uploads', $data['photo']);
-                $data['photo'] = $img_path;
-            };
-        }
-        if (Arr::exists($data, 'curriculum')) {
-            if ($doctor->curriculum) {
-                $img_path = Storage::put('uploads', $data['curriculum']);
-                $data['curriculum'] = $img_path;
-            };
-        }
-
-
+            Storage::delete($doctor->photo);
+            $photo = Storage::put('uploads', $data['photo']);
+            $data['photo'] = $photo;
+        };
+        if ($doctor->curriculum && array_search('curriculum', $data)) {
+            Storage::delete($doctor->curriculum);
+            $curriculum = Storage::put('uploads', $data['curriculum']);
+            $data['curriculum'] = $curriculum;
+        };
         $doctor->update($data);
 
         if (Arr::exists($data, 'specialization')) {
             $doctor->specializations()->sync($data['specialization']);
         } else
             $doctor->specializations()->detach();
-
         return view('dashboard', compact('doctor'));
     }
 
