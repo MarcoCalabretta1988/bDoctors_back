@@ -11,6 +11,9 @@
 
         <form action="{{route('admin.doctors.store')}}" method="POST" enctype="multipart/form-data">
             @include('includes.form')
+            @section('button')
+                <button>Iscriviti</button>
+            @endsection
         </form>
     </div>
 </body>

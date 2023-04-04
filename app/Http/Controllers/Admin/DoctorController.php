@@ -40,9 +40,9 @@ class DoctorController extends Controller
         $request->validate(
             [
                 'address' => 'required|string',
-                'phone' => 'required|unique|min:6',
-                'curriculum' => 'nullable|mimetipe: png, jpg, jpeg',
-                'photo' => 'nullable|mimetipe: png, jpg, jpeg'
+                'phone' => 'required|unique:doctors|min:6',
+                'curriculum' => 'nullable',
+                'photo' => 'nullable'
             ],
             [
                 'address.required' => "l'indirizzo è obbligatiorio",
@@ -93,7 +93,8 @@ class DoctorController extends Controller
     public function edit(Doctor $doctor)
     {
         $specializations = Specialization::all();
-        return view('admin.doctors.edit', compact('doctor', 'specializations'));
+        $doctor_spec = $doctor->specializations->pluck('id')->toArray();
+        return view('admin.doctors.edit', compact('doctor', 'specializations', 'doctor_spec'));
     }
 
     /**
@@ -101,32 +102,32 @@ class DoctorController extends Controller
      */
     public function update(Request $request, Doctor $doctor)
     {
-        $request->validate(
-            [
-                'address' => 'required|string',
-                'phone' => 'required|unique|min:6',
-                'curriculum' => 'nullable|mimetipe: png, jpg, jpeg',
-                'photo' => 'nullable|mimetipe: png, jpg, jpeg'
-            ]
-            ,
-            [
-                'address.required' => "l'indirizzo è obbligatiorio",
-                'address.string' => "il capo inserito è errato",
-                'phone.required' => "il numero di recapito è obbligatorio",
-                'phone.unique' => "il Numero è già stato utilizzato",
-                'phone.min' => "il numero deve contenere almeno 6 caratteri",
-                'curriculum.mimetipe' => "il file inserito per il curriculum non è valido",
-                'photo.mimetipe' => "il file inserito per la foto non è valido",
-            ]
-        );
+        // $request->validate(
+        //     [
+        //         'address' => 'required|string',
+        //         'phone' => 'required|unique:doctors|min:6',
+        //         'curriculum' => 'nullable',
+        //         'photo' => 'nullable'
+        //     ]
+        //     ,
+        //     [
+        //         'address.required' => "l'indirizzo è obbligatiorio",
+        //         'address.string' => "il capo inserito è errato",
+        //         'phone.required' => "il numero di recapito è obbligatorio",
+        //         'phone.unique' => "il Numero è già stato utilizzato",
+        //         'phone.min' => "il numero deve contenere almeno 6 caratteri",
+        //         'curriculum.mimetipe' => "il file inserito per il curriculum non è valido",
+        //         'photo.mimetipe' => "il file inserito per la foto non è valido",
+        //     ]
+        // );
         $data = $request->all();
-        if ($doctor->photo && array_search('photo', $data)) {
+        if (Arr::exists($data, 'photo')) {
             Storage::delete($doctor->photo);
             $photo = Storage::put('uploads', $data['photo']);
             $data['photo'] = $photo;
         }
         ;
-        if ($doctor->curriculum && array_search('curriculum', $data)) {
+        if (Arr::exists($data, 'curriculum')) {
             Storage::delete($doctor->curriculum);
             $curriculum = Storage::put('uploads', $data['curriculum']);
             $data['curriculum'] = $curriculum;
@@ -137,7 +138,7 @@ class DoctorController extends Controller
             $doctor->specializations()->sync($data['specialization']);
         } else
             $doctor->specializations()->detach();
-        return view('admin.doctors.index', compact('doctor'));
+        return view('dashboard', compact('doctor'));
     }
 
     /**
