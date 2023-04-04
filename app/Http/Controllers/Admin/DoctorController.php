@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Doctor;
+use App\Models\Specialization;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -74,6 +75,8 @@ class DoctorController extends Controller
      */
     public function edit(Doctor $doctor)
     {
+        $specializations = Specialization::all();
+        return view('admin.doctors.edit', compact('doctor', 'specializations'));
     }
 
     /**
@@ -81,7 +84,25 @@ class DoctorController extends Controller
      */
     public function update(Request $request, Doctor $doctor)
     {
-        //
+        $data = $request->all();
+        if ($doctor->photo && array_search('photo', $data)) {
+            Storage::delete($doctor->photo);
+            $photo = Storage::put('uploads', $data['photo']);
+            $data['photo'] = $photo;
+        }
+        ;
+        if ($doctor->curriculum && array_search('curriculum', $data)) {
+            Storage::delete($doctor->curriculum);
+            $curriculum = Storage::put('uploads', $data['curriculum']);
+            $data['curriculum'] = $curriculum;
+        }
+        ;
+        $doctor->update($data);
+        if (Arr::exists($data, 'specialization')) {
+            $doctor->specializations()->sync($data['specialization']);
+        } else
+            $doctor->specializations()->detach();
+        return view('admin.doctors.index', compact('doctor'));
     }
 
     /**

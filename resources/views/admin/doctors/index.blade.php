@@ -9,12 +9,12 @@
                 <div class="row">
                     <div class="col-3">
 
-                        <img src="{{ asset('storage/'. $doctor->photo)}}" alt="{{ $name }}" class="img-fluid">
+                        <img src="{{ asset('storage/'. $doctor->photo)}}" alt="{{ $doctor->user->name }}" class="img-fluid">
 
                     </div>
                    
             <div class="col-9 d-flex flex-column justify-content-center t-shadow">
-                <div>Nome: {{ ucfirst($name) }}</div>
+                <div>Nome: {{ $doctor->user->name }}</div>
                 <div class="py-3">Indirizzo: {{ $doctor->address }}</div>
                 <div>Telefono: {{ $doctor->phone }}</div>
             </div>

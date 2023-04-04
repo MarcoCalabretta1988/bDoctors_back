@@ -9,7 +9,7 @@
 <body>
     <div class="bg-img">
 
-        <form action="{{route('admin.doctors.edit')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('admin.doctors.update', $doctor->id)}}" method="POST" enctype="multipart/form-data">
             @method('PUT')
             @include('includes.form')
         </form>
