@@ -7,6 +7,8 @@ use App\Models\Doctor;
 use App\Models\Specialization;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class DoctorController extends Controller
 {
@@ -25,14 +27,35 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
+        //validation api
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'email|unique|',
+            'pasword' => 'required|min:8',
+            'address' => 'required|strin',
+            'phone' => 'required|unique|min:6'
+        ]);
+
+
         $data = $request->all();
-
+        //take user
         $user = new User();
+        //take doctor and fill data
+        $doctor = new Doctor();
+        $doctor->fill($data);
+        $doctor->save();
+        //fill user data
         $user->fill($data);
-
+        //add doctor_id corelation
+        $user->doctor_id = $doctor->id;
         $user->password = bcrypt('password');
-
         $user->save();
+
+        //take aray whith specializations id
+        if (Arr::exists($data, 'specialization')) {
+            $doctor->specializations()->attach($data['specialization']);
+        }
+
         return response(null, 204);
     }
 
