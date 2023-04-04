@@ -18,10 +18,7 @@
                 <button class="btn btn-primary">Aggiorna</button>
             @endsection
         </form>
-<<<<<<< HEAD
         <a href="{{ route('dashboard') }}" class="btn btn-warning">Dashboard</a>
-=======
->>>>>>> 2ce34a6fdcaded0c78f0ff9e992112332dd59aa7
     </div>
 </body>
 
