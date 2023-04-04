@@ -8,7 +8,7 @@
                 <h1 class="text-center t-shadow">PROFILO</h1>
                 <div class="row">
                     <div class="col-3">
-
+                        
                         <img src="{{ asset('storage/'. $img[0])}}" alt="{{ $name }}" class="img-fluid">
 
                     </div>

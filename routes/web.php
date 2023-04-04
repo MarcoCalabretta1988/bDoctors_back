@@ -33,7 +33,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->prefix('admin/doctors')->name('admin.doctors.')->group(function () {
 
     Route::get('/create', [DoctorController::class, 'create'])->name('create');
-    Route::get('/edit/{doctor}', [DoctorController::class, 'edit'])->name('edit');
+    Route::get('/edit/{user_id}', [DoctorController::class, 'edit'])->name('edit');
+    Route::put('/update/{user_id}', [DoctorController::class, 'update'])->name('update');
     Route::post('/', [DoctorController::class, 'store'])->name('store');
 });
 
