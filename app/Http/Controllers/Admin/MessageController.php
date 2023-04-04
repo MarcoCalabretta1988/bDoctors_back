@@ -63,7 +63,7 @@ class MessageController extends Controller
     public function destroy(Message $message)
     {
         $message->delete();
-        return to_route('admin.messages.index')->with('type', 'success')->with('msg', 'Messaggio eliminato con successo');
+        return to_route('admin.messages.index')->with('type', 'success')->with('msg', 'Messaggio spostato nel cestino');
     }
 
     public function trash()
