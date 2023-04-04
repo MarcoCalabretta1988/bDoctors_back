@@ -12,11 +12,10 @@
         <form action="{{route('admin.doctors.update', $doctor->id)}}" method="POST" enctype="multipart/form-data">
             @method('PUT')
             @include('includes.form')
-            @section('button')
+            @section('my-button')
                 <button class="btn btn-primary">Aggiorna</button>
             @endsection
         </form>
-        <a href="{{ route('dashboard')}}" class="btn btn-warning">Dashboard</a>
     </div>
 </body>
 </html>
