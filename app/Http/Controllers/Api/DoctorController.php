@@ -71,7 +71,8 @@ class DoctorController extends Controller
         $doctors->sponsoreds;
         $doctors->specializations;
 
-        if (!$doctors) return response(null, 404);
+        if (!$doctors)
+            return response(null, 404);
 
         return response()->json($doctors);
     }
@@ -98,7 +99,8 @@ class DoctorController extends Controller
     {
         $specialization = Specialization::find($id);
 
-        if (!$specialization) return response(null, 404);
+        if (!$specialization)
+            return response(null, 404);
         $doctors = $specialization->doctors->all();
 
         return response()->json(compact('specialization'));
