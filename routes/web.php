@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DoctorController;
+use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,4 +42,14 @@ Route::middleware('auth')->prefix('admin/doctors')->name('admin.doctors.')->grou
 
 require __DIR__ . '/auth.php';
 
+//Doctors Route
+
 Route::resource('admin/doctors', App\Http\Controllers\Admin\DoctorController::class, ['as' => 'admin']);
+
+//Message Route
+
+Route::resource('admin/messages', App\Http\Controllers\Admin\MessageController::class, ['as' => 'admin']);
+//SoftDelete Route
+Route::get('/messages/trash', [MessageController::class, 'trash'])->name('admin.messages.trash');
+Route::patch('/messages/{id}/restore', [MessageController::class, 'restore'])->name('admin.messages.restore');
+Route::delete('/messages/{id}/delete', [MessageController::class, 'delete'])->name('admin.messages.delete');
