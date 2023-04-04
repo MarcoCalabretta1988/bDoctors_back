@@ -42,8 +42,8 @@ class DoctorController extends Controller
             [
                 'address' => 'required|string',
                 'phone' => 'required|unique|min:6',
-                'curriculum' => 'nullable|mimetipe: png, jpg, jpeg',
-                'photo' => 'nullable|mimetipe: png, jpg, jpeg'
+                'curriculum' => 'nullable|mimes: png, jpg, jpeg',
+                'photo' => 'nullable|mimes: png, jpg, jpeg'
             ],
             [
                 'address.required' => "l'indirizzo è obbligatiorio",
@@ -105,11 +105,10 @@ class DoctorController extends Controller
         $request->validate(
             [
                 'address' => 'required|string',
-                'phone' => 'required|unique|min:6',
-                'curriculum' => 'nullable|mimetipe: png, jpg, jpeg',
-                'photo' => 'nullable|mimetipe: png, jpg, jpeg'
-            ]
-            ,
+                'phone' => 'required|min:6',
+                'curriculum' => 'nullable|mimes: png, jpg, jpeg',
+                'photo' => 'nullable|mimes: png, jpg, jpeg'
+            ],
             [
                 'address.required' => "l'indirizzo è obbligatiorio",
                 'address.string' => "il capo inserito è errato",
@@ -132,11 +131,13 @@ class DoctorController extends Controller
             $data['curriculum'] = $curriculum;
         };
         $doctor->update($data);
+
+        dd($data);
         if (Arr::exists($data, 'specialization')) {
             $doctor->specializations()->sync($data['specialization']);
         } else
             $doctor->specializations()->detach();
-        return view('admin.doctors.index', compact('doctor'));
+        return view('admin.doctors.edit', compact('doctor'));
     }
 
     /**
