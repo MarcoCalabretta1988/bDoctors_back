@@ -34,7 +34,7 @@
                         <a href="{{route('admin.messages.show',$message->id)}}" class="btn btn-sm btn-primary me-3"><i class="fa-sharp fa-solid fa-eye"></i></a>
                        
               
-                         <form action="{{ route('admin.messages.destroy' , $message->id)}}" method="POST" class="delete-form">
+                         <form action="{{ route('admin.messages.destroy' , $message->id)}}" method="POST" class="trash-form">
                           @method('DELETE')
                           @csrf
                           <button  technology="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>

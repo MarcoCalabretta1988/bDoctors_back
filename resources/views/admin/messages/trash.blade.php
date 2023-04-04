@@ -30,12 +30,12 @@
                     <td>{{$message->created_at}}</td>
     
                     <td>
-                      <div class="button-box d-flex justify-content-end">
+                      <div class="button-box d-flex justify-content-end align-items-center">
                        
                         <form action="{{ route('admin.messages.restore' , $message->id)}}" method="POST">
                           @method('PATCH')
                           @csrf
-                          <button  type="submit" class="btn btn-success btn-sm me-3"><i class="fa-solid fa-trash-can-arrow-up"></i> Ripristina</button>
+                          <button  type="submit" class="btn btn-success btn-sm me-3"><i class="fa-solid fa-trash-can-arrow-up"></i></button>
                          </form>
               
                          <form action="{{ route('admin.messages.delete' , $message->id)}}" method="POST" class="delete-form">
