@@ -31,7 +31,7 @@ class DoctorController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'email|unique|',
-            'pasword' => 'required|min:8',
+            'password' => 'required|min:8',
             'address' => 'required|strin',
             'phone' => 'required|unique|min:6'
         ]);
