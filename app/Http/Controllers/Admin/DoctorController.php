@@ -20,8 +20,9 @@ class DoctorController extends Controller
     {
         $doctor = Auth::user()->doctor;
         $name = Auth::user()->name;
+        $specializations = Auth::user()->doctor->specializations->toArray();
 
-        return view('admin.doctors.index', compact('name', 'doctor'));
+        return view('admin.doctors.index', compact('name', 'doctor', 'specializations'));
     }
 
     /**
@@ -124,14 +125,12 @@ class DoctorController extends Controller
             Storage::delete($doctor->photo);
             $photo = Storage::put('uploads', $data['photo']);
             $data['photo'] = $photo;
-        }
-        ;
+        };
         if ($doctor->curriculum && array_search('curriculum', $data)) {
             Storage::delete($doctor->curriculum);
             $curriculum = Storage::put('uploads', $data['curriculum']);
             $data['curriculum'] = $curriculum;
-        }
-        ;
+        };
         $doctor->update($data);
         if (Arr::exists($data, 'specialization')) {
             $doctor->specializations()->sync($data['specialization']);
