@@ -65,4 +65,22 @@ class MessageController extends Controller
         $message->delete();
         return to_route('admin.messages.index')->with('type', 'success')->with('msg', 'Messaggio eliminato con successo');
     }
+
+    public function trash()
+    {
+        $messages = Message::onlyTrashed()->Paginate(10);
+        return view('admin.messages.trash', compact('messages'));
+    }
+    public function restore(int $id)
+    {
+        $message = Message::onlyTrashed()->findOrFail($id);
+        $message->restore();
+        return to_route('admin.messages.index')->with('type', 'success')->with('msg', 'Messaggio ripristinato con successo');
+    }
+    public function delete(int $id)
+    {
+        $message = Message::onlyTrashed()->findOrFail($id);
+        $message->forceDelete();
+        return to_route('admin.messages.index')->with('type', 'success')->with('msg', 'Messaggio eliminato definitivamente');
+    }
 }

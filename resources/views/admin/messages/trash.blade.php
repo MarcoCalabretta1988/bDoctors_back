@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@section('title', 'Messagges')
+@section('title', 'Cestino')
 @section('content')
 
-    <section id='messages'>
+    <section id='trash'>
       <div class="container py-5">
         @if(session('msg'))
   <div class="alert alert-{{session('type') ?? 'info'}} " >
@@ -31,13 +31,17 @@
     
                     <td>
                       <div class="button-box d-flex justify-content-end">
-                        <a href="{{route('admin.messages.show',$message->id)}}" class="btn btn-sm btn-primary me-3"><i class="fa-sharp fa-solid fa-eye"></i></a>
                        
+                        <form action="{{ route('admin.messages.restore' , $message->id)}}" method="POST">
+                          @method('PATCH')
+                          @csrf
+                          <button  type="submit" class="btn btn-success btn-sm me-3"><i class="fa-solid fa-trash-can-arrow-up"></i> Ripristina</button>
+                         </form>
               
-                         <form action="{{ route('admin.messages.destroy' , $message->id)}}" method="POST" class="delete-form">
+                         <form action="{{ route('admin.messages.delete' , $message->id)}}" method="POST" class="delete-form">
                           @method('DELETE')
                           @csrf
-                          <button  technology="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                          <button  type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
                          </form>
                       </div>
                       </td>
@@ -46,7 +50,7 @@
                 </tbody>
               </table>
               <div class="d-flex justify-content-between align-items-center">
-                <a href="{{ route('admin.messages.trash')}}" class="btn btn-warning"><i class="fa-solid fa-trash"></i> Cestino</a>
+                <a href="{{ route('admin.messages.index')}}" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Indietro </a>
                 @if($messages->hasPages())
                 {{ $messages->links()}}
                 @endif
