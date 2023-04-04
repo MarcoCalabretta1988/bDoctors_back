@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class DoctorController extends Controller
 {
@@ -28,17 +29,27 @@ class DoctorController extends Controller
     public function store(Request $request)
     {
         //validation api
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'email|unique|',
-            'pasword' => 'required|min:8',
-            'address' => 'required|strin',
-            'phone' => 'required|unique|min:6'
-        ]);
+
+
 
 
         $data = $request->all();
         //take user
+        $validator = Validator::make(
+            $data,
+            [
+                'email' => 'bail|required|email',
+                'name' => 'bail|required',
+                'password' => 'bail|required|min:6',
+                'phone' => 'bail|required|min:6',
+                'address' => 'bail|required',
+            ],
+
+
+        );
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
         $user = new User();
         //take doctor and fill data
         $doctor = new Doctor();
