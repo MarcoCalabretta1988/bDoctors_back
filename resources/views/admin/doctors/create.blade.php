@@ -10,11 +10,9 @@
 
 <body>
     <div class="bg-img">
+        @include('includes.form')
 
-        <form action="{{ route('admin.doctors.store') }}" method="POST" enctype="multipart/form-data">
-            @include('includes.form')
 
-        </form>
     </div>
 </body>
 

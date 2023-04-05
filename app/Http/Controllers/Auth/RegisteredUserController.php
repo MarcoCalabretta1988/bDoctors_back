@@ -33,6 +33,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $doctor = new Doctor();
+        $doctor_spec = [];
         $specializations = Specialization::all();
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -50,6 +51,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return view('admin.doctors.create', compact('specializations', 'doctor'));
+        return view('admin.doctors.create', compact('specializations', 'doctor', 'doctor_spec'));
     }
 }

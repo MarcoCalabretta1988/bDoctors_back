@@ -11,11 +11,10 @@
 <body>
     <div class="bg-img">
 
-        <form action="{{ route('admin.doctors.update', $doctor->id) }}" method="POST" enctype="multipart/form-data">
-            @method('PUT')
-            @include('includes.form')
 
-        </form>
+        @include('includes.form')
+
+
 
     </div>
 </body>

@@ -32,7 +32,7 @@ class DoctorController extends Controller
     {
         $specializations = Specialization::all();
         $doctor_spec = [];
-        return view('admin.doctors.create', compact('specializations', 'doctor_spec', 'doctor'));
+        return view('admin.doctors.create', compact('specializations', 'doctor_spec',));
     }
 
     /**
@@ -43,19 +43,19 @@ class DoctorController extends Controller
         $request->validate(
             [
                 'address' => 'required|string',
-                'phone' => 'required|min:6',
-                'curriculum' => 'nullable|mimes: png, jpg, jpeg',
-                'photo' => 'nullable|mimes: png, jpg, jpeg'
+                'phone' => 'required|string|min:6',
+                'curriculum' => 'nullable|image',
+                'photo' => 'nullable|image'
             ],
-            // [
-            //     'address.required' => "l'indirizzo è obbligatiorio",
-            //     'address.string' => "il capo inserito è errato",
-            //     'phone.required' => "il numero di recapito è obbligatorio",
+            [
+                'address.required' => "l'indirizzo è obbligatiorio",
+                'address.string' => "il capo inserito è errato",
+                'phone.required' => "il numero di recapito è obbligatorio",
 
-            //     'phone.min' => "il numero deve contenere almeno 6 caratteri",
-            //     'curriculum.mimes' => "il file inserito per il curriculum non è valido",
-            //     'photo.mimes' => "il file inserito per la foto non è valido",
-            // ]
+                'phone.min' => "il numero deve contenere almeno 6 caratteri",
+                'curriculum.mimes' => "il file inserito per il curriculum non è valido",
+                'photo.mimes' => "il file inserito per la foto non è valido",
+            ]
         );
         $data = $request->all();
         if (Arr::exists($data, 'photo')) {
@@ -109,8 +109,8 @@ class DoctorController extends Controller
             [
                 'address' => 'required|string',
                 'phone' => 'required|unique:doctors|min:6',
-                'curriculum' => 'nullable',
-                'photo' => 'nullable'
+                'curriculum' => 'nullable|image',
+                'photo' => 'nullable|image'
             ],
             [
                 'address.required' => "l'indirizzo è obbligatiorio",

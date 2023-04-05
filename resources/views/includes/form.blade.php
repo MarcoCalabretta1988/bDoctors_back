@@ -2,6 +2,27 @@
 
 
 @section('content')
+    {{-- ERROR ALERT --}}
+    @if ($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if ($doctor->exists)
+        <form action="{{ route('admin.doctors.update', $doctor->id) }}" method="POST" enctype="multipart/form-data">
+            @method('PUT')
+        @else
+            {{-- form store --}}
+            <form action="{{ route('admin.doctors.store') }}" method="POST" enctype="multipart/form-data">
+    @endif
+
+
+
     <div class="container">
         @csrf
 
@@ -46,19 +67,13 @@
                 @endforeach
             </div>
             <div class="text-end mt-3">
-                <button type="submit" class="btn btn-success">
-                    @if (Route::has('admin.doctors.edit'))
-                        Aggiorna
-                    @else
-                        Iscriviti
-                    @endif
-                </button>
+                <button type="submit" class="btn btn-success">salva</button>
 
                 <a href="{{ route('admin.doctors.index') }}" class="btn btn-warning">Indietro</a>
             </div>
         </div>
     </div>
 
-
+    </form>
     </div>
 @endsection
