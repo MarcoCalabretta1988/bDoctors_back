@@ -30,7 +30,9 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('admin.doctors.create');
+        $specializations = Specialization::all();
+        $doctor_spec = [];
+        return view('admin.doctors.create', compact('specializations', 'doctor_spec', 'doctor'));
     }
 
     /**
@@ -122,16 +124,23 @@ class DoctorController extends Controller
         //     ]
         // );
         $data = $request->all();
+
         if (Arr::exists($data, 'photo')) {
-            Storage::delete($doctor->photo);
+            if ($doctor->photo) {
+                Storage::delete($doctor->photo);
+            }
             $photo = Storage::put('uploads', $data['photo']);
             $data['photo'] = $photo;
-        };
-        if ($doctor->curriculum && array_search('curriculum', $data)) {
-            Storage::delete($doctor->curriculum);
+        }
+        ;
+        if (Arr::exists($data, 'curriculum')) {
+            if ($doctor->curriculum) {
+                Storage::delete($doctor->curriculum);
+            }
             $curriculum = Storage::put('uploads', $data['curriculum']);
             $data['curriculum'] = $curriculum;
-        };
+        }
+        ;
         $doctor->update($data);
 
         if (Arr::exists($data, 'specialization')) {
