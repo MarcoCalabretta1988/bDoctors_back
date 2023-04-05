@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
             $table->string('address');
-            $table->string('photo')->nullable();
-            $table->string('curriculum')->nullable();
+            $table->text('photo')->nullable();
+            $table->text('curriculum')->nullable();
             $table->string('phone', 20);
             $table->timestamps();
         });

@@ -22,7 +22,6 @@
     @endif
 
 
-
     <div class="container">
         @csrf
 
@@ -40,7 +39,7 @@
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Foto Profilo</label>
                         <input type="file" class="form-control" id="photo" name="photo"
-                            placeholder="mandaci una tua foto">
+                            placeholder="mandaci una tua foto" accept="image/*">
                     </div>
                 </div>
             </div>
@@ -49,7 +48,7 @@
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Curriculum</label>
                     <input type="file" class="form-control" id="curriculum" name="curriculum"
-                        placeholder="inserisci una foto del tuo curriculum">
+                        placeholder="inserisci una foto del tuo curriculum" accept="image/*">
                 </div>
             </div>
             {{-- phone --}}

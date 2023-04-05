@@ -8,6 +8,7 @@ use App\Models\Specialization;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -42,8 +43,9 @@ class DoctorController extends Controller
     {
         $request->validate(
             [
+
                 'address' => 'required|string',
-                'phone' => 'required|string|min:6',
+                //'phone' => 'required|unique:doctors|min:6',
                 'curriculum' => 'nullable|image',
                 'photo' => 'nullable|image'
             ],
@@ -57,6 +59,7 @@ class DoctorController extends Controller
                 'photo.mimes' => "il file inserito per la foto non è valido",
             ]
         );
+
         $data = $request->all();
         if (Arr::exists($data, 'photo')) {
             $img_path = Storage::put('uploads', $data['photo']);
@@ -70,11 +73,16 @@ class DoctorController extends Controller
         $doctor = new Doctor();
 
 
+
         $doctor->fill($data);
+
         $doctor->save();
-        $user = Auth::user();
-        $user->doctor_id = $doctor->id;
-        $user->save();
+        if (!empty($doctor)) {
+
+            $user = Auth::user();
+            $user->doctor_id = $doctor->id;
+            $user->save();
+        }
         if (Arr::exists($data, 'specialization')) {
             $doctor->specializations()->attach($data['specialization']);
         }
@@ -108,7 +116,7 @@ class DoctorController extends Controller
         $request->validate(
             [
                 'address' => 'required|string',
-                'phone' => 'required|unique:doctors|min:6',
+                //'phone' => 'required|unique:doctors|min:6',
                 'curriculum' => 'nullable|image',
                 'photo' => 'nullable|image'
             ],
