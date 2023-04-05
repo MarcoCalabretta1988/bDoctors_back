@@ -4,6 +4,7 @@
 @section('content')
     <div class="container">
         @csrf
+
         <div class="my-5 bg-light p-5 rounded border border-primary">
             {{-- adress --}}
             <div class="mb-3">
@@ -45,9 +46,15 @@
                 @endforeach
             </div>
             <div class="text-end mt-3">
-                @yield('my-button')
-                <button class="btn btn-primary">prova</button>
-                <a href="{{ route('dashboard') }}" class="btn btn-warning">Dashboard</a>
+                <button type="submit" class="btn btn-success">
+                    @if (Route::has('admin.doctors.edit'))
+                        Aggiorna
+                    @else
+                        Iscriviti
+                    @endif
+                </button>
+
+                <a href="{{ route('admin.doctors.index') }}" class="btn btn-warning">Indietro</a>
             </div>
         </div>
     </div>

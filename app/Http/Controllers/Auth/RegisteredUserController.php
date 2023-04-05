@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Doctor;
 use App\Models\Specialization;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -31,6 +32,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        $doctor = new Doctor();
         $specializations = Specialization::all();
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -48,6 +50,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return view('admin.doctors.create', compact('specializations'));
+        return view('admin.doctors.create', compact('specializations', 'doctor'));
     }
 }
