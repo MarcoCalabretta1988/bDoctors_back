@@ -43,7 +43,6 @@ class DoctorController extends Controller
     {
         $request->validate(
             [
-
                 'address' => 'required|string',
                 //'phone' => 'required|unique:doctors|min:6',
                 'curriculum' => 'nullable|image',
@@ -53,19 +52,21 @@ class DoctorController extends Controller
                 'address.required' => "l'indirizzo è obbligatiorio",
                 'address.string' => "il capo inserito è errato",
                 'phone.required' => "il numero di recapito è obbligatorio",
-
+                'phone.unique' => "il Numero è già stato utilizzato",
                 'phone.min' => "il numero deve contenere almeno 6 caratteri",
-                'curriculum.mimes' => "il file inserito per il curriculum non è valido",
-                'photo.mimes' => "il file inserito per la foto non è valido",
+                'curriculum.mimetipe' => "il file inserito per il curriculum non è valido",
+                'photo.mimetipe' => "il file inserito per la foto non è valido",
             ]
         );
 
         $data = $request->all();
+
+        //photo converter
         if (Arr::exists($data, 'photo')) {
             $img_path = Storage::put('uploads', $data['photo']);
             $data['photo'] = $img_path;
         }
-
+        //curriculum converter
         if (Arr::exists($data, 'curriculum')) {
             $img_path = Storage::put('uploads', $data['curriculum']);
             $data['curriculum'] = $img_path;
@@ -77,6 +78,8 @@ class DoctorController extends Controller
         $doctor->fill($data);
 
         $doctor->save();
+
+        //fill and save if doctor it's not empy (but dont work why?)
         if (!empty($doctor)) {
 
             $user = Auth::user();
@@ -86,7 +89,7 @@ class DoctorController extends Controller
         if (Arr::exists($data, 'specialization')) {
             $doctor->specializations()->attach($data['specialization']);
         }
-        // mbe ??????
+
         return view('dashboard', compact('doctor'));
     }
 
