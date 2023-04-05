@@ -12,7 +12,7 @@
                 </div>
                 <div class="b-border p-5">
 
-                    <div>Hai <strong>0</strong> nuovi Messaggi</div>
+                    <div>Hai <strong>{{$messages}}</strong> messaggi non letti</div>
                     <div>Hai <strong>2</strong> nuove Recensioni</div>
                 </div>
                </div>
