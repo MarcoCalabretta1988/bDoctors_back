@@ -81,9 +81,9 @@ class DoctorController extends Controller
         $doctor = new Doctor();
         $doctor->fill($data);
 
-        if (!$doctor->isValid()) {
-            return redirect()->back()->withErrors($doctor->getErrors())->withInput();
-        }
+        // if (!$doctor->isValid()) {
+        //     return redirect()->back()->withErrors($doctor->getErrors())->withInput();
+        // }
 
         $doctor->save();
 
