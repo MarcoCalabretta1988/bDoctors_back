@@ -38,6 +38,9 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
+        $message->is_read = true;
+        $message->save();
+
         return view('admin.messages.show', compact('message'));
     }
 

@@ -11,7 +11,7 @@
 @endif
         
         
-            <table class="table table-dark table-striped ">
+            <table class="table table-dark ">
                 <thead>
                   <tr>
                     <th scope="col">Nome:</th>
@@ -21,9 +21,9 @@
                     <th></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     @foreach ($messages as $message)
-                    <tr>    
+                    <tr class="{{ $message->is_read ? "text-secondary" : "text-white"}}">    
                     <th scope="row">{{$message->name}}</th>
                     <td>{{$message->email}}</td>
                     <td>{{$message->text}}</td>
