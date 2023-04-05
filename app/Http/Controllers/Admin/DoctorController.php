@@ -8,6 +8,7 @@ use App\Models\Specialization;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -39,9 +40,10 @@ class DoctorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Doctor $doctor)
+    public function store(Request $request)
     {
-        $request->validate(
+        $validator = Validator::make(
+            $request->all(),
             [
                 'address' => 'required|string',
                 //'phone' => 'required|unique:doctors|min:6',
@@ -59,6 +61,10 @@ class DoctorController extends Controller
             ]
         );
 
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        }
+
         $data = $request->all();
 
         //photo converter
@@ -71,21 +77,23 @@ class DoctorController extends Controller
             $img_path = Storage::put('uploads', $data['curriculum']);
             $data['curriculum'] = $img_path;
         }
+
         $doctor = new Doctor();
-
-
-
         $doctor->fill($data);
+
+        if (!$doctor->isValid()) {
+            return redirect()->back()->withErrors($doctor->getErrors())->withInput();
+        }
 
         $doctor->save();
 
         //fill and save if doctor it's not empy (but dont work why?)
         if (!empty($doctor)) {
-
             $user = Auth::user();
             $user->doctor_id = $doctor->id;
             $user->save();
         }
+
         if (Arr::exists($data, 'specialization')) {
             $doctor->specializations()->attach($data['specialization']);
         }
