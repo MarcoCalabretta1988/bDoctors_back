@@ -17,31 +17,36 @@ class DoctorSeeder extends Seeder
 
         $doctors = [
             [
-                'address' => "via Michele coppino 12, Torino",
+                'address' => "via Michele coppino 12",
+                'city' => "Torino",
                 'phone' => "3490391382",
                 'curriculum' => "",
                 'photo' => ""
             ],
             [
-                'address' => "via Dolomiti 11, Milano",
+                'address' => "via Dolomiti 11",
+                'city' => "Milano",
                 'phone' => "3490391345",
                 'curriculum' => "",
                 'photo' => ""
             ],
             [
-                'address' => "via Roma 143, Napoli",
+                'address' => "via Roma 143",
+                'city' => "Napoli",
                 'phone' => "3490391382",
                 'curriculum' => "",
                 'photo' => ""
             ],
             [
                 'address' => "via Pippo 15, Roma",
+                'city' => "Roma",
                 'phone' => "3490391382",
                 'curriculum' => "",
                 'photo' => ""
             ],
             [
                 'address' => "via Marco Polo, Catanzaro",
+                'city' => "Catanzaro",
                 'phone' => "3490391382",
                 'curriculum' => "",
                 'photo' => ""
@@ -54,6 +59,7 @@ class DoctorSeeder extends Seeder
             $new_doctor->phone = $doctor['phone'];
             $new_doctor->curriculum = $doctor['curriculum'];
             $new_doctor->photo = $doctor['photo'];
+            $new_doctor->city = $doctor['city'];
             $new_doctor->is_sponsored = $faker->boolean();
             $new_doctor->save();
         }
