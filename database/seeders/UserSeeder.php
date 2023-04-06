@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             $user->name =  $faker->name();
             $user->email = $faker->email();
             $user->password = bcrypt('password');
-            $user->doctor_id = $doctor->random()->id;
+            $user->doctor_id = $i + 1;
             $user->save();
         }
     }
