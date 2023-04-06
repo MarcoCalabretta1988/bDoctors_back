@@ -15,7 +15,7 @@ class VoteSeeder extends Seeder
     public function run(Generator $faker): void
     {
         $labels = [
-            'Discredo', 'Buono', 'Ottimo', 'Pessimo', 'Eccellente'
+            'Discreto', 'Buono', 'Ottimo', 'Pessimo', 'Eccellente'
             /**smiters */
         ];
         foreach ($labels as $lable) {
