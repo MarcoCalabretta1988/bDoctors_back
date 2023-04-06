@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Doctor;
+use App\Models\Review;
 use App\Models\Specialization;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -116,6 +117,19 @@ class DoctorController extends Controller
         $doctors = $specialization->doctors->all();
 
         return response()->json(compact('specialization'));
+    }
+
+    //filter by specialization 
+
+    public function reviewDoctorIndex(string $id)
+    {
+        $review = Review::find($id);
+
+        if (!$review)
+            return response(null, 404);
+        $doctors = $review->doctors->all();
+
+        return response()->json(compact('review'));
     }
 
     //pass specialization in route 
