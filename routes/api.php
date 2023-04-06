@@ -35,5 +35,9 @@ Route::post('/store', [DoctorController::class, 'store']);
 
 Route::get('/specializations', [DoctorController::class, 'specialization']);
 
+//votes
+
+Route::get('/votes', [DoctorController::class, 'vote']);
+
 //filter 
 Route::get('/specializations/{id}/doctors', [DoctorController::class, 'specializationDoctorIndex']);
