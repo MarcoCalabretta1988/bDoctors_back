@@ -38,8 +38,8 @@
                  @enderror
             </div>
             {{-- photo --}}
-            <div class="d-flex">
-                <div class="col-5 me-4">
+            <div class="row">
+                <div class="col-7 me-4">
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label ">Foto Profilo</label>
                         <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo"
@@ -50,21 +50,36 @@
                          @enderror
                     </div>
                 </div>
-
-                <div class="col-3" id="img-prev"></div>
+              {{-- PHOTO PREVIEW --}}
+           <div class="col-3">
+            <label for="exampleFormControlInput1" class="form-label ">Anteprima foto:</label>
+                         <img src="{{ $doctor->image ? asset('storage/' . $doctor->image) : 'https://media.istockphoto.com/id/1357365823/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=PM_optEhHBTZkuJQLlCjLz-v3zzxp-1mpNQZsdjrbns='}}" alt="{{ old('name', $doctor->name) }}" class="img-fluid" id="img-prev" style="max-height: 150px">
+           </div>
             </div>
             {{-- curriculum --}}
-            <div class="col-5">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label ">Curriculum</label>
-                    <input type="file" class="form-control @error('curriculum') is-invalid @enderror" id="curriculum" name="curriculum"
-                        placeholder="inserisci una foto del tuo curriculum" accept="image/*">
-                        @error('curriculum')
-                        <div class="invalid-feedback">{{ $message}}</div>
-             
-                     @enderror
+            <div class="row my-2">
+
+                <div class="col-7 me-4">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label ">Curriculum</label>
+                        <input type="file" class="form-control @error('curriculum') is-invalid @enderror" id="curriculum" name="curriculum"
+                            placeholder="inserisci una foto del tuo curriculum" accept="image/*">
+                            @error('curriculum')
+                            <div class="invalid-feedback">{{ $message}}</div>
+                 
+                         @enderror
+                         
+                    </div>
+                    
                 </div>
+                      {{-- CURRICULUM PREVIEW --}}
+        <div class="col-3">
+            <label for="exampleFormControlInput1" class="form-label ">Anteprima curriculum:</label>
+            <img src="{{ $doctor->image ? asset('storage/' . $doctor->image) : 'https://media.istockphoto.com/id/1357365823/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=PM_optEhHBTZkuJQLlCjLz-v3zzxp-1mpNQZsdjrbns='}}" alt="{{ old('name', $doctor->name) }}" class="img-fluid" id="curriculum-prev" style="max-height: 150px">
+   </div>
             </div>
+      
+
             {{-- phone --}}
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Numero di Recapito</label>
@@ -103,8 +118,10 @@
 
 const placeHolder = 'https://media.istockphoto.com/id/1357365823/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=PM_optEhHBTZkuJQLlCjLz-v3zzxp-1mpNQZsdjrbns=';
 const imageInput = document.getElementById('photo');
+const curriculumInput = document.getElementById('curriculum');
 const imagePreview = document.getElementById('img-prev');
-console.log(imageInput);
+const curriculumPreview = document.getElementById('curriculum-prev');
+
 imageInput.addEventListener('change', () => {
     
     if (imageInput.files && imageInput.files[0]) {
@@ -115,6 +132,18 @@ imageInput.addEventListener('change', () => {
         }
     }
     else imagePreview.src = placeHolder;
+})
+
+curriculumInput.addEventListener('change', () => {
+    
+    if (curriculumInput.files && curriculumInput.files[0]) {
+        const reader = new FileReader();
+        reader.readAsDataURL(curriculumInput.files[0]);
+        reader.onload = e => {
+            curriculumPreview.src = e.target.result;
+        }
+    }
+    else curriculumPreview.src = placeHolder;
 })
 </script>
 @endsection
