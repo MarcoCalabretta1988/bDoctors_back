@@ -1,7 +1,7 @@
 .bg-img {
     background-image: url(../../public/img/medical-bg.jpg);
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 #form-board {

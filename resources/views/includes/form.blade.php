@@ -53,7 +53,7 @@
               {{-- PHOTO PREVIEW --}}
            <div class="col-3">
             <label for="exampleFormControlInput1" class="form-label ">Anteprima foto:</label>
-                         <img src="{{ $doctor->image ? asset('storage/' . $doctor->image) : 'https://media.istockphoto.com/id/1357365823/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=PM_optEhHBTZkuJQLlCjLz-v3zzxp-1mpNQZsdjrbns='}}" alt="{{ old('name', $doctor->name) }}" class="img-fluid" id="img-prev" style="max-height: 150px">
+                         <img src="{{ $doctor->photo ? asset('storage/' . $doctor->photo) : 'https://media.istockphoto.com/id/1357365823/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=PM_optEhHBTZkuJQLlCjLz-v3zzxp-1mpNQZsdjrbns='}}" alt="{{ old('name', $doctor->name) }}" class="img-fluid" id="img-prev" style="max-height: 150px">
            </div>
             </div>
             {{-- curriculum --}}
@@ -75,7 +75,7 @@
                       {{-- CURRICULUM PREVIEW --}}
         <div class="col-3">
             <label for="exampleFormControlInput1" class="form-label ">Anteprima curriculum:</label>
-            <img src="{{ $doctor->image ? asset('storage/' . $doctor->image) : 'https://media.istockphoto.com/id/1357365823/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=PM_optEhHBTZkuJQLlCjLz-v3zzxp-1mpNQZsdjrbns='}}" alt="{{ old('name', $doctor->name) }}" class="img-fluid" id="curriculum-prev" style="max-height: 150px">
+            <img src="{{ $doctor->curriculum ? asset('storage/' . $doctor->curriculum) : 'https://media.istockphoto.com/id/1357365823/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=PM_optEhHBTZkuJQLlCjLz-v3zzxp-1mpNQZsdjrbns='}}" alt="{{ old('name', $doctor->name) }}" class="img-fluid" id="curriculum-prev" style="max-height: 150px">
    </div>
             </div>
       

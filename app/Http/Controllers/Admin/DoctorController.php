@@ -146,7 +146,6 @@ class DoctorController extends Controller
             ]
         );
         $data = $request->all();
-
         if (Arr::exists($data, 'photo')) {
             if ($doctor->photo) {
                 Storage::delete($doctor->photo);
@@ -158,6 +157,7 @@ class DoctorController extends Controller
             if ($doctor->curriculum) {
                 Storage::delete($doctor->curriculum);
             }
+            dd($data['curriculum']);
             $curriculum = Storage::put('uploads', $data['curriculum']);
             $data['curriculum'] = $curriculum;
         };
