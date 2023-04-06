@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Doctor;
+use Faker\Generator;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -11,7 +12,7 @@ class DoctorSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run(Generator $faker): void
     {
 
         $doctors = [
@@ -53,6 +54,7 @@ class DoctorSeeder extends Seeder
             $new_doctor->phone = $doctor['phone'];
             $new_doctor->curriculum = $doctor['curriculum'];
             $new_doctor->photo = $doctor['photo'];
+            $new_doctor->is_sponsored = $faker->boolean();
             $new_doctor->save();
         }
     }
