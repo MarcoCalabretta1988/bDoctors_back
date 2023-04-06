@@ -33,8 +33,9 @@ class DoctorController extends Controller
     public function create()
     {
         $specializations = Specialization::all();
+        $doctor = new Doctor();
         $doctor_spec = [];
-        return view('admin.doctors.create', compact('specializations', 'doctor_spec',));
+        return view('admin.doctors.create', compact('specializations', 'doctor_spec', 'doctor'));
     }
 
     /**

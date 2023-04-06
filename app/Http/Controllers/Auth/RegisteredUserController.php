@@ -51,6 +51,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return view('admin.doctors.create', compact('specializations', 'doctor', 'doctor_spec'));
+        return redirect()->route('admin.doctors.create');
     }
 }
