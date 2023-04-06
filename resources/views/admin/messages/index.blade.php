@@ -47,9 +47,9 @@
                   @endif
                 </tbody>
               </table>
-              <div class="d-flex  align-items-center">
-                <a href="{{ route('admin.messages.trash')}}" class="btn btn-warning me-3"><i class="fa-solid fa-trash"></i> Cestino</a>
-                <a href="{{route('dashboard')}}" class="btn btn-danger">Indietro</a>
+              <div class="d-flex justify-content-between align-items-center">
+                <a href="{{route('dashboard')}}" class="btn btn-warning"><i class="fa-solid fa-arrow-rotate-left"></i> Indietro</a>
+                <a href="{{ route('admin.messages.trash')}}" class="btn btn-info"><i class="fa-solid fa-trash"></i> Cestino</a>
                 @if($messages->hasPages())
                 {{ $messages->links()}}
                 @endif

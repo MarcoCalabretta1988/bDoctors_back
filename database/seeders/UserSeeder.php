@@ -16,13 +16,13 @@ class UserSeeder extends Seeder
     public function run(Generator $faker): void
     {
         $doctor = Doctor::all();
-        for ($i = 0; $i <= 5; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $user = new User();
 
             $user->name =  $faker->name();
             $user->email = $faker->email();
             $user->password = bcrypt('password');
-            $user->doctor_id = $doctor->random()->id;
+            $user->doctor_id = $doctor[$i]->id;
             $user->save();
         }
     }

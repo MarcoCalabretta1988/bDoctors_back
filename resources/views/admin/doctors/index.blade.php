@@ -19,6 +19,7 @@
                        <div class="col-7 d-flex flex-column align-items-start justify-content-center t-shadow px-5">
                           <h4>Nome: <span class="text-white ">{{ $doctor->user->name }}</span></h4>
                           <h4 class="py-3">Indirizzo: <span class="text-white ">{{ $doctor->address }}</span></h4>
+                          <h4 class="pb-3">Città: <span class="text-white ">{{ $doctor->city }}</span></h4>
                           <h4>Telefono: <span class="text-white ">{{ $doctor->phone }}</span></h4>
                         </div>
 
