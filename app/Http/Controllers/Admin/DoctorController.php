@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class DoctorController extends Controller
 {
@@ -47,18 +48,20 @@ class DoctorController extends Controller
             $request->all(),
             [
                 'address' => 'required|string',
-                //'phone' => 'required|unique:doctors|min:6',
-                'curriculum' => 'nullable|image',
-                'photo' => 'nullable|image'
+                'phone' => 'required|unique:doctors|min:6',
+                'curriculum' => 'nullable|image|mimes:jpg,jpeg,png',
+                'photo' => 'nullable|image|mimes:jpg,jpeg,png'
             ],
             [
-                'address.required' => "l'indirizzo è obbligatiorio",
-                'address.string' => "il capo inserito è errato",
-                'phone.required' => "il numero di recapito è obbligatorio",
-                'phone.unique' => "il Numero è già stato utilizzato",
-                'phone.min' => "il numero deve contenere almeno 6 caratteri",
-                'curriculum.mimetipe' => "il file inserito per il curriculum non è valido",
-                'photo.mimetipe' => "il file inserito per la foto non è valido",
+                'address.required' => "L'indirizzo è obbligatiorio",
+                'address.string' => "Il capo address deve essere una stringa",
+                'phone.required' => "Il numero di telefono è obbligatorio",
+                'phone.unique' => "Il numero è già presente in archivio",
+                'phone.min' => "Il numero deve contenere almeno 6 caratteri",
+                'curriculum.mimes' => "Il file inserito per il curriculum non è valido, accettato JPG,JPEG,PNG",
+                'curriculum.image' => "Il curriculum deve essere un immagine",
+                'photo.mimes' => "il file inserito per la foto non è valido, accettato JPG,JPEG,PNG",
+                'photo.image' => "La foto profilo deve essere un immagine",
             ]
         );
 
@@ -82,9 +85,7 @@ class DoctorController extends Controller
         $doctor = new Doctor();
         $doctor->fill($data);
 
-        // if (!$doctor->isValid()) {
-        //     return redirect()->back()->withErrors($doctor->getErrors())->withInput();
-        // }
+
 
         $doctor->save();
 
@@ -128,18 +129,20 @@ class DoctorController extends Controller
         $request->validate(
             [
                 'address' => 'required|string',
-                //'phone' => 'required|unique:doctors|min:6',
-                'curriculum' => 'nullable|image',
-                'photo' => 'nullable|image'
+                'phone' => ['required', 'string', Rule::unique('doctors')->ignore($doctor->id), 'min:6', 'max:50'],
+                'curriculum' => 'nullable|image|mimes:jpg,jpeg,png',
+                'photo' => 'nullable|image|mimes:jpg,jpeg,png'
             ],
             [
-                'address.required' => "l'indirizzo è obbligatiorio",
-                'address.string' => "il capo inserito è errato",
-                'phone.required' => "il numero di recapito è obbligatorio",
-                'phone.unique' => "il Numero è già stato utilizzato",
-                'phone.min' => "il numero deve contenere almeno 6 caratteri",
-                'curriculum.mimetipe' => "il file inserito per il curriculum non è valido",
-                'photo.mimetipe' => "il file inserito per la foto non è valido",
+                'address.required' => "L'indirizzo è obbligatiorio",
+                'address.string' => "Il capo address deve essere una stringa",
+                'phone.required' => "Il numero di telefono è obbligatorio",
+                'phone.unique' => "Il numero è già presente in archivio",
+                'phone.min' => "Il numero deve contenere almeno 6 caratteri",
+                'curriculum.mimes' => "Il file inserito per il curriculum non è valido, accettato JPG,JPEG,PNG",
+                'curriculum.image' => "Il curriculum deve essere un immagine",
+                'photo.mimes' => "il file inserito per la foto non è valido, accettato JPG,JPEG,PNG",
+                'photo.image' => "La foto profilo deve essere un immagine",
             ]
         );
         $data = $request->all();
@@ -164,7 +167,9 @@ class DoctorController extends Controller
             $doctor->specializations()->sync($data['specialization']);
         } else
             $doctor->specializations()->detach();
-        return view('dashboard', compact('doctor'));
+        $specializations = Auth::user()->doctor->specializations->toArray();
+
+        return view('admin.doctors.index', compact('doctor', 'specializations'));
     }
 
     /**
