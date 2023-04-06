@@ -23,6 +23,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('admin.messages.index')}}">{{ __('Messaggi') }}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('admin.reviews.index')}}">{{ __('Recensioni') }}</a>
+                </li>
                 @endauth
             </ul>
 

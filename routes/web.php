@@ -58,3 +58,9 @@ Route::resource('admin/messages', App\Http\Controllers\Admin\MessageController::
 Route::get('/messages/trash', [MessageController::class, 'trash'])->name('admin.messages.trash');
 Route::patch('/messages/{id}/restore', [MessageController::class, 'restore'])->name('admin.messages.restore');
 Route::delete('/messages/{id}/delete', [MessageController::class, 'delete'])->name('admin.messages.delete');
+
+Route::resource('admin/reviews', App\Http\Controllers\Admin\ReviewController::class, ['as' => 'admin']);
+// //SoftDelete Route
+// Route::get('/review/trash', [MessageController::class, 'trash'])->name('admin.review.trash');
+// Route::patch('/review/{id}/restore', [MessageController::class, 'restore'])->name('admin.review.restore');
+// Route::delete('/review/{id}/delete', [MessageController::class, 'delete'])->name('admin.review.delete');
