@@ -7,6 +7,7 @@ use App\Models\Doctor;
 use App\Models\Review;
 use App\Models\Specialization;
 use App\Models\User;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -140,5 +141,13 @@ class DoctorController extends Controller
         $specialization = Specialization::all();
 
         return response()->json($specialization);
+    }
+
+    public function vote()
+    {
+
+        $votes = Vote::all();
+
+        return response()->json($votes);
     }
 }
