@@ -22,6 +22,7 @@
                   </tr>
                 </thead>
                 <tbody >
+                  
                     @foreach ($messages as $message)
                     <tr class="{{ $message->is_read ? "text-secondary" : "text-white"}}">    
                     <th scope="row">{{$message->name}}</th>
@@ -45,8 +46,9 @@
                     @endforeach
                 </tbody>
               </table>
-              <div class="d-flex justify-content-between align-items-center">
-                <a href="{{ route('admin.messages.trash')}}" class="btn btn-warning"><i class="fa-solid fa-trash"></i> Cestino</a>
+              <div class="d-flex  align-items-center">
+                <a href="{{ route('admin.messages.trash')}}" class="btn btn-warning me-3"><i class="fa-solid fa-trash"></i> Cestino</a>
+                <a href="{{route('dashboard')}}" class="btn btn-danger">Indietro</a>
                 @if($messages->hasPages())
                 {{ $messages->links()}}
                 @endif
