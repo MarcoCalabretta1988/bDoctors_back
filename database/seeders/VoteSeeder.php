@@ -18,10 +18,10 @@ class VoteSeeder extends Seeder
             'Discreto', 'Buono', 'Ottimo', 'Pessimo', 'Eccellente'
             /**smiters */
         ];
-        foreach ($labels as $lable) {
+        foreach ($labels as $label) {
             $new_vote = new Vote();
 
-            $new_vote->lable = $lable;
+            $new_vote->label = $label;
             $new_vote->color = $faker->hexColor();
 
             $new_vote->save();
