@@ -50,7 +50,8 @@ class DoctorController extends Controller
                 'address' => 'required|string',
                 'phone' => 'required|unique:doctors|min:6',
                 'curriculum' => 'nullable|image|mimes:jpg,jpeg,png',
-                'photo' => 'nullable|image|mimes:jpg,jpeg,png'
+                'photo' => 'nullable|image|mimes:jpg,jpeg,png',
+                'city' => 'nullable|string'
             ],
             [
                 'address.required' => "L'indirizzo è obbligatiorio",
@@ -62,6 +63,7 @@ class DoctorController extends Controller
                 'curriculum.image' => "Il curriculum deve essere un immagine",
                 'photo.mimes' => "il file inserito per la foto non è valido, accettato JPG,JPEG,PNG",
                 'photo.image' => "La foto profilo deve essere un immagine",
+                'city.string' => "Il campo città deve essere una stringa"
             ]
         );
 
@@ -131,7 +133,8 @@ class DoctorController extends Controller
                 'address' => 'required|string',
                 'phone' => ['required', 'string', Rule::unique('doctors')->ignore($doctor->id), 'min:6', 'max:50'],
                 'curriculum' => 'nullable|image|mimes:jpg,jpeg,png',
-                'photo' => 'nullable|image|mimes:jpg,jpeg,png'
+                'photo' => 'nullable|image|mimes:jpg,jpeg,png',
+                'city' => 'nullable|string'
             ],
             [
                 'address.required' => "L'indirizzo è obbligatiorio",
@@ -143,6 +146,7 @@ class DoctorController extends Controller
                 'curriculum.image' => "Il curriculum deve essere un immagine",
                 'photo.mimes' => "il file inserito per la foto non è valido, accettato JPG,JPEG,PNG",
                 'photo.image' => "La foto profilo deve essere un immagine",
+                'city.string' => "Il campo città deve essere una stringa"
             ]
         );
         $data = $request->all();
@@ -157,7 +161,6 @@ class DoctorController extends Controller
             if ($doctor->curriculum) {
                 Storage::delete($doctor->curriculum);
             }
-            dd($data['curriculum']);
             $curriculum = Storage::put('uploads', $data['curriculum']);
             $data['curriculum'] = $curriculum;
         };

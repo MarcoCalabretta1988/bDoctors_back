@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Message;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +23,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    $messages = Message::where('is_read', false)->get()->count();
+    $id = Auth::id();
+    $messages = Message::where('id', $id)->where('is_read', false)->get()->count();
 
     return view('dashboard', compact('messages'));
 })->middleware(['auth', 'verified'])->name('dashboard');
