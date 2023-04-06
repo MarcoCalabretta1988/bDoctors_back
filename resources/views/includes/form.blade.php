@@ -39,7 +39,7 @@
                 </div>
                 {{-- CITY --}}
               <div class="col-3">
-                <label for="city" class="form-label">Indirizzo</label>
+                <label for="city" class="form-label">Città</label>
                 <input type="text" required class="form-control @error('city') is-invalid @enderror" id="city" name="city"
                     value="{{ old('city', $doctor->city) }}">
                     @error('city')
