@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -13,7 +14,8 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messages = Message::orderBy('updated_at', 'DESC')->simplePaginate(10);
+        $id = Auth::id();
+        $messages = Message::where('id', $id)->orderBy('updated_at', 'DESC')->simplePaginate(10);
         return view('admin.messages.index', compact('messages'));
     }
 

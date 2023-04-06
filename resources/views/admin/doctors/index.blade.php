@@ -36,13 +36,13 @@
                                    @endforeach
                                </ul>
                            </div>
-                           <div class="col-12">
+                           <div class="col-12 my-3">
                             <h3 class="mb-5">Curriculum:</h3>
                             <img src="{{ asset('storage/'. $doctor->curriculum)}}" alt="{{ $doctor->user->name }}" class="img-fluid">
                            </div>
                 <div class="col-12 d-flex justify-content-end">
-
-                    <a href="{{ route('admin.doctors.edit', $doctor->id) }}" class="btn btn-warning">Modifica</a>
+                    <a href="{{ route('admin.doctors.index') }}" class="btn btn-warning me-2"><i class="fa-solid fa-arrow-rotate-left"></i> Indietro</a>
+                    <a href="{{ route('admin.doctors.edit', $doctor->id) }}" class="btn btn-success"><i class="fa-solid fa-pencil"></i> Modifica</a>
                 </div>
             </div>
         </div>
