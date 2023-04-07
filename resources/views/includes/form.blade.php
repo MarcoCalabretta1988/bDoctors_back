@@ -93,7 +93,7 @@
                 @if ($doctor->exists)
                     <div class="col-5">
 
-                        <select class="form-select" name="sponsoreds">
+                        <select class="form-select" name="sponsored_ad">
                             <option value="" selected>Scegli un piano di sponsorizazione</option>
                             @foreach ($sponsoreds as $sponsored)
                                 <option value="{{ $sponsored->id }}">{{ $sponsored->name }} costo:
