@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use App\Models\Specialization;
+use App\Models\Sponsored;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -35,6 +36,7 @@ class DoctorController extends Controller
     {
         $specializations = Specialization::all();
         $doctor = new Doctor();
+
         $doctor_spec = [];
         return view('admin.doctors.create', compact('specializations', 'doctor_spec', 'doctor'));
     }
@@ -118,9 +120,10 @@ class DoctorController extends Controller
      */
     public function edit(Doctor $doctor)
     {
+        $sponsoreds = Sponsored::all();
         $specializations = Specialization::all();
         $doctor_spec = $doctor->specializations->pluck('id')->toArray();
-        return view('admin.doctors.edit', compact('doctor', 'specializations', 'doctor_spec'));
+        return view('admin.doctors.edit', compact('doctor', 'specializations', 'doctor_spec', 'sponsoreds'));
     }
 
     /**
