@@ -13,7 +13,7 @@
                 <div class="b-border p-5">
 
                     <div>Hai <strong>{{$messages ?? '0'}}</strong> messaggi non letti</div>
-                    <div>Hai <strong>2</strong> nuove Recensioni</div>
+                    <div>Hai <strong>{{$reviews ?? '0'}}</strong> recenzioni non lette</div>
                 </div>
                </div>
                 </div>

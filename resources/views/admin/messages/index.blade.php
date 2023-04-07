@@ -9,8 +9,7 @@
             {{ session('msg')}}
   </div>
 @endif
-        
-        
+
             <table class="table table-dark ">
                 <thead>
                   <tr>

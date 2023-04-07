@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reviews', function (Blueprint $table) {
-            $table->id();
-            $table->string('text');
-            $table->string('name', 50);
-            $table->timestamps();
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->boolean('is_read')->default(0);
+            $table->softDeletes();
         });
     }
 
@@ -24,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reviews');
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->dropColumn('is_read');
+            $table->dropSoftDeletes();
+        });
     }
 };
