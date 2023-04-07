@@ -51,8 +51,8 @@
               </table>
               <div class="d-flex justify-content-between align-items-center">
                 <a href="{{ route('admin.reviews.index')}}" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Indietro </a>
-                @if($messages->hasPages())
-                {{ $messages->links()}}
+                @if($reviews->hasPages())
+                {{ $reviews->links()}}
                 @endif
               </div>
             </div>

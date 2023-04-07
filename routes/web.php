@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Message;
+use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,8 +27,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     $id = Auth::id();
     $messages = Message::where('id', $id)->where('is_read', false)->get()->count();
-
-    return view('dashboard', compact('messages'));
+    $reviews = Review::where('id', $id)->where('is_read', false)->get()->count();
+    return view('dashboard', compact('messages', 'reviews'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -60,7 +62,7 @@ Route::patch('/messages/{id}/restore', [MessageController::class, 'restore'])->n
 Route::delete('/messages/{id}/delete', [MessageController::class, 'delete'])->name('admin.messages.delete');
 
 Route::resource('admin/reviews', App\Http\Controllers\Admin\ReviewController::class, ['as' => 'admin']);
-// //SoftDelete Route
-// Route::get('/review/trash', [MessageController::class, 'trash'])->name('admin.review.trash');
-// Route::patch('/review/{id}/restore', [MessageController::class, 'restore'])->name('admin.review.restore');
-// Route::delete('/review/{id}/delete', [MessageController::class, 'delete'])->name('admin.review.delete');
+//SoftDelete Route
+Route::get('/review/trash', [ReviewController::class, 'trash'])->name('admin.reviews.trash');
+Route::patch('/review/{id}/restore', [ReviewController::class, 'restore'])->name('admin.reviews.restore');
+Route::delete('/review/{id}/delete', [ReviewController::class, 'delete'])->name('admin.reviews.delete');

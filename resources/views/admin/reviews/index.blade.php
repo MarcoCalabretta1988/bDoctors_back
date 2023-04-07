@@ -46,7 +46,7 @@
               </table>
               <div class="d-flex justify-content-between align-items-center">
                 <a href="{{route('dashboard')}}" class="btn btn-warning"><i class="fa-solid fa-arrow-rotate-left"></i> Indietro</a>
-               {{-- // <a href="{{ route('admin.reviews.trash')}}" class="btn btn-info"><i class="fa-solid fa-trash"></i> Cestino</a> --}}
+                <a href="{{ route('admin.reviews.trash')}}" class="btn btn-info"><i class="fa-solid fa-trash"></i> Cestino</a>
                 @if($reviews->hasPages())
                 {{ $reviews->links()}}
                 @endif

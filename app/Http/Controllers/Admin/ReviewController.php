@@ -67,6 +67,25 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+        $review->delete();
+        return to_route('admin.reviews.index')->with('type', 'success')->with('msg', 'Recenzione spostata nel cestino');
+    }
+
+    public function trash()
+    {
+        $reviews = Review::onlyTrashed()->Paginate(10);
+        return view('admin.reviews.trash', compact('reviews'));
+    }
+    public function restore(int $id)
+    {
+        $review = Review::onlyTrashed()->findOrFail($id);
+        $review->restore();
+        return to_route('admin.reviews.index')->with('type', 'success')->with('msg', 'Recenzione ripristinata con successo');
+    }
+    public function delete(int $id)
+    {
+        $review = Review::onlyTrashed()->findOrFail($id);
+        $review->forceDelete();
+        return to_route('admin.reviews.index')->with('type', 'success')->with('msg', 'Recenzione eliminata definitivamente');
     }
 }
