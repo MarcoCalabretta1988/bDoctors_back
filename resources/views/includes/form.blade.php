@@ -90,7 +90,7 @@
                         style="max-height: 150px">
                 </div>
                 {{-- sponsored select --}}
-                @if ($doctor->exists)
+                {{-- @if ($doctor->exists)
                     <div class="col-5">
 
                         <select class="form-select" name="sponsored_ad">
@@ -102,7 +102,7 @@
 
                         </select>
                     </div>
-                @endif
+                @endif --}}
             </div>
 
 

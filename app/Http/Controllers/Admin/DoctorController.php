@@ -172,6 +172,36 @@ class DoctorController extends Controller
             $data['curriculum'] = $curriculum;
         };
         $doctor->update($data);
+
+        //!specialization atach in db
+        if (Arr::exists($data, 'specialization')) {
+            $doctor->specializations()->sync($data['specialization']);
+        } else
+            $doctor->specializations()->detach();
+        $specializations = Auth::user()->doctor->specializations->toArray();
+
+        return view('admin.doctors.index', compact('doctor', 'specializations'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Doctor $doctor)
+    {
+        //
+    }
+
+    public function changeToPro(Doctor $doctor)
+    {
+
+        $sponsoreds = Sponsored::all();
+
+        return view('admin.doctors.paymentForm', compact('doctor', 'sponsoreds'));
+    }
+
+    public function updatepro(Request $request, Doctor $doctor)
+    {
+        $data = $request->all();
         //!  select metod for sponsorization 
         if (Arr::exists($data, 'sponsored_ad')) { // controll if a sponsored_at has selected
             $sponsored = Sponsored::findOrFail($data['sponsored_ad']);
@@ -190,21 +220,6 @@ class DoctorController extends Controller
         } else {
             $doctor->sponsoreds()->detach();
         }
-        //!specialization atach in db
-        if (Arr::exists($data, 'specialization')) {
-            $doctor->specializations()->sync($data['specialization']);
-        } else
-            $doctor->specializations()->detach();
-        $specializations = Auth::user()->doctor->specializations->toArray();
-
-        return view('admin.doctors.index', compact('doctor', 'specializations'));
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Doctor $doctor)
-    {
-        //
+        return to_route('admin.doctors.index');
     }
 }
