@@ -172,13 +172,21 @@ class DoctorController extends Controller
         $doctor->update($data);
         //!  select metod for sponsorization 
         if (Arr::exists($data, 'sponsored_ad')) { // controlla se è stata selezionata una sponsored ad
+            $sponsored = Sponsored::findOrFail($data['sponsored_ad']);
             $duration = DB::table('sponsoreds')->where('id', $data['sponsored_ad'])->value('duration');
             $start_at = Carbon::now(); // dynamic start date
             $end_at = $start_at->copy()->addHours($duration); // calculate end date based on start date and sponsored duration in hours
             $durationInDays = $start_at->diffInDays($end_at); // calculate duration in days
             $start_at = $start_at->format('Y/m/d'); // format start date year/mounth/day
             $end_at = $end_at->format('Y/m/d'); // format end date with year/mounth/day
-            $doctor->sponsoreds()->attach($data['sponsored_ad'], ['start_at' => $start_at, 'end_at' => $end_at]);
+            $doctor->sponsoreds()->sync([
+                $sponsored->id => [
+                    'start_at' => $start_at,
+                    'end_at' => $end_at,
+                ]
+            ]);
+        } else {
+            $doctor->sponsoreds()->detach();
         }
 
         if (Arr::exists($data, 'specialization')) {
