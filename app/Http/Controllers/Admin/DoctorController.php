@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Doctor;
+use App\Models\DoctorSponsored;
 use App\Models\Specialization;
 use App\Models\Sponsored;
 use App\Models\User;
@@ -136,7 +137,7 @@ class DoctorController extends Controller
         $request->validate(
             [
                 'address' => 'required|string',
-                'phone' => ['required', 'string', Rule::unique('doctors')->ignore($doctor->id), 'min:6', 'max:50'],
+                'phone' => ['required', 'string', Rule::unique('doctors')->ignore($doctor->id), 'min:6', 'max:50',],
                 'curriculum' => 'nullable|image|mimes:jpg,jpeg,png',
                 'photo' => 'nullable|image|mimes:jpg,jpeg,png',
                 'city' => 'nullable|string'
@@ -155,6 +156,7 @@ class DoctorController extends Controller
             ]
         );
         $data = $request->all();
+        //!photo upload photo
         if (Arr::exists($data, 'photo')) {
             if ($doctor->photo) {
                 Storage::delete($doctor->photo);
@@ -171,7 +173,7 @@ class DoctorController extends Controller
         };
         $doctor->update($data);
         //!  select metod for sponsorization 
-        if (Arr::exists($data, 'sponsored_ad')) { // controlla se è stata selezionata una sponsored ad
+        if (Arr::exists($data, 'sponsored_ad')) { // controll if a sponsored_at has selected
             $sponsored = Sponsored::findOrFail($data['sponsored_ad']);
             $duration = DB::table('sponsoreds')->where('id', $data['sponsored_ad'])->value('duration');
             $start_at = Carbon::now(); // dynamic start date
@@ -188,7 +190,7 @@ class DoctorController extends Controller
         } else {
             $doctor->sponsoreds()->detach();
         }
-
+        //!specialization atach in db
         if (Arr::exists($data, 'specialization')) {
             $doctor->specializations()->sync($data['specialization']);
         } else
