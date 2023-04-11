@@ -201,6 +201,8 @@ class DoctorController extends Controller
         $message = $data['message'];
 
         $mail = new MessageMail($sender, $subject, $message);
+        // todo aggiungere la mail del dottore al quale mandare la mail del nuovo messaggio, anche nel cosntruct se serve
+        //todo adesso la mail viene inviata a chi la scrive 
         Mail::to($sender)->send($mail);
         $new_message = new Message();
         $new_message->email = $sender;
@@ -208,9 +210,8 @@ class DoctorController extends Controller
         $new_message->text = $message;
         $new_message->is_read = 0;
 
-        //! AGGIUNGERE COLLEGAMENTO CON ID DOTTORE**************************
+        //! AGGIUNGERE COLLEGAMENTO CON ID DOTTORE
         $new_message->doctor_id = 1;
-        //! *************************************
         $new_message->save();
         return response(null, 204);
     }
