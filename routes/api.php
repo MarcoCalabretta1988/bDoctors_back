@@ -46,3 +46,5 @@ Route::get('/votes', [DoctorController::class, 'votes']);
 Route::get('/specializations/{id}/doctors', [DoctorController::class, 'specializationDoctorIndex']);
 
 Route::get('/votes/{id}/doctors', [DoctorController::class, 'voteDoctorIndex']);
+//mails
+Route::post('/MessageMail', [DoctorController::class, 'messageMail']);
