@@ -9,6 +9,9 @@
             {{ session('msg')}}
   </div>
 @endif
+@if (!$reviews[0])
+<h1 class="p-blu t-shadow text-center">Non ci sono nuove recensioni!</h1>                      
+@else
         
         
             <table class="table table-dark ">
@@ -53,4 +56,5 @@
               </div>
             </div>
     </section>
+    @endif
 @endsection
