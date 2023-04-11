@@ -31,7 +31,10 @@ Route::get('/doctors/{doctor}', [DoctorController::class, 'show']);
 Route::post('/store', [DoctorController::class, 'store']);
 //get reviev from front form api
 
-Route::post('/review', [DoctorController::class, 'getREwiev']);
+Route::post('/review/{doctor}', [DoctorController::class, 'getREwiev']);
+//vote
+
+Route::post('/vote/{doctor}', [DoctorController::class, 'getVote']);
 
 
 //specializations

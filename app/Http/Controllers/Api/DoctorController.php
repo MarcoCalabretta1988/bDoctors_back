@@ -190,8 +190,14 @@ class DoctorController extends Controller
 
     //vote api route
 
-    public function getVote()
+    public function getVote(Request $request, Doctor $doctor)
     {
+        //take vote
+        $voteId = $request->input('vote_id');
+        // dd($voteId);
+        $doctor->votes()->attach($voteId);
+
+        return response()->json(['success' => true]);
     }
     public function messageMail(Request $request)
     {
