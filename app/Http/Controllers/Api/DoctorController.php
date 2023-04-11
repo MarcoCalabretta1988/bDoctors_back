@@ -128,7 +128,7 @@ class DoctorController extends Controller
     {
         $media = Doctor::find($id)->votes->avg('value');
         if (!$media) {
-            return response(null, 404);
+            $media = 0;
         }
 
         return response()->json(compact('media'));
