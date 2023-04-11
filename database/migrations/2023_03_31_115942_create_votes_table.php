@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
-            $table->string('label'); //è una stringha o un ENUM?
+            $table->string('label');
+            $table->tinyInteger('value');
             $table->string('color', 20);
             $table->timestamps();
         });
