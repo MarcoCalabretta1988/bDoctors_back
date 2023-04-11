@@ -15,7 +15,7 @@ class MessageController extends Controller
     public function index()
     {
         $id = Auth::id();
-        $messages = Message::where('id', $id)->orderBy('updated_at', 'DESC')->simplePaginate(10);
+        $messages = Message::where('doctor_id', $id)->orderBy('updated_at', 'DESC')->simplePaginate(10);
         return view('admin.messages.index', compact('messages'));
     }
 
