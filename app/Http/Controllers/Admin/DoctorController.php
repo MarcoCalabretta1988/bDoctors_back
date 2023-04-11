@@ -30,11 +30,13 @@ class DoctorController extends Controller
         $specializations = Auth::user()->doctor->specializations->toArray();
         $votes = Auth::user()->doctor->votes->toArray();
         $sum = 0;
-        foreach ($votes as $vote)
-            $sum = $sum + $vote['value'];
+        if ($votes) {
+            foreach ($votes as $vote)
+                $sum = $sum + $vote['value'];
 
-        $media = $sum / count($votes);
-
+            $media = $sum / count($votes);
+        } else
+            $media = 0;
         return view('admin.doctors.index', compact('name', 'doctor', 'specializations', 'media'));
     }
 
@@ -112,8 +114,8 @@ class DoctorController extends Controller
         if (Arr::exists($data, 'specialization')) {
             $doctor->specializations()->attach($data['specialization']);
         }
-
-        return view('dashboard', compact('doctor'));
+        $media = 0;
+        return view('dashboard', compact('doctor', 'media'));
     }
 
     /**
@@ -185,8 +187,17 @@ class DoctorController extends Controller
         } else
             $doctor->specializations()->detach();
         $specializations = Auth::user()->doctor->specializations->toArray();
+        $votes = Auth::user()->doctor->votes->toArray();
+        $sum = 0;
+        if ($votes) {
+            foreach ($votes as $vote)
+                $sum = $sum + $vote['value'];
 
-        return view('admin.doctors.index', compact('doctor', 'specializations'));
+            $media = $sum / count($votes);
+        } else
+            $media = 0;
+
+        return view('admin.doctors.index', compact('doctor', 'specializations', 'media'));
     }
 
     /**

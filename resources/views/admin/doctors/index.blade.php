@@ -29,7 +29,7 @@
                         <h3 class="py-5">Media Voto:
                              <span class="text-warning">
                                 @for ($i = 0; $i < 5; $i++)
-                                @if ($i<$media)
+                                @if ($media && $i<$media)
                                 &#9733
                                 @else    
                                 &#9734
