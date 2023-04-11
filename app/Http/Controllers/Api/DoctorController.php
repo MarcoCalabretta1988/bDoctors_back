@@ -150,4 +150,15 @@ class DoctorController extends Controller
 
         return response()->json($votes);
     }
+
+    public function getREwiev(Request $request)
+    {
+
+        $data = $request->all();
+        $review = new Review();
+
+        $review->fill($data);
+        $review->save();
+        return response(null, 204);
+    }
 }
