@@ -16,7 +16,9 @@ class ReviewController extends Controller
     {
         $id = Auth::id();
         $reviews = Review::where('id', $id)->orderBy('updated_at', 'DESC')->simplePaginate(10);
-        return view('admin.reviews.index', compact('reviews'));
+        $votes = Auth::user()->doctor->votes->toArray();
+
+        return view('admin.reviews.index', compact('reviews', 'votes'));
     }
 
     /**
