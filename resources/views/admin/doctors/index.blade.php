@@ -26,8 +26,16 @@
                     </div>
 
                     <div class="col-12 d-flex justify-content-between align-items-center">
-                        <h3 class="py-5">Media Voto: <span class="text-warning">&#9733; &#9733; &#9733; &#9734;
-                                &#9734;</span>
+                        <h3 class="py-5">Media Voto:
+                             <span class="text-warning">
+                                @for ($i = 0; $i < 5; $i++)
+                                @if ($i<$media)
+                                &#9733
+                                @else    
+                                &#9734
+                                @endif
+                            @endfor
+                             </span>
                         </h3>
                     </div>
                     <div class=" col-12 py-3">

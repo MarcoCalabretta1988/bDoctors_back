@@ -12,8 +12,8 @@
 @if (!$reviews[0])
 <h1 class="p-blu t-shadow text-center">Non ci sono nuove recensioni!</h1>                      
 @else
-        
-        
+        {{-- Reviews Table --}}
+        <h1 class="p-blu t-shadow text-center">Recensioni:</h1>
             <table class="table table-dark ">
                 <thead>
                   <tr>
@@ -47,14 +47,47 @@
                     @endforeach
                 </tbody>
               </table>
+
+              
               <div class="d-flex justify-content-between align-items-center">
-                <a href="{{route('dashboard')}}" class="btn btn-warning"><i class="fa-solid fa-arrow-rotate-left"></i> Indietro</a>
+            
                 <a href="{{ route('admin.reviews.trash')}}" class="btn btn-info"><i class="fa-solid fa-trash"></i> Cestino</a>
                 @if($reviews->hasPages())
                 {{ $reviews->links()}}
                 @endif
               </div>
+              {{-- Votes Table --}}
+              <h1 class="p-blu t-shadow text-center">Voti:</h1>
+              <table class="table table-dark ">
+                  <thead>
+                    <tr>
+                      <th scope="col">Voto:</th>
+                      <th scope="col">Stelle:</th> 
+                    </tr>
+                  </thead>
+                  <tbody >
+                    
+                      @foreach ($votes as $vote)
+                      <tr>    
+                      <th scope="row" ><span class="p-1 rounded" style="background-color: {{$vote['color']}}">{{$vote['label']}}</span></th>
+                     
+                      <td class="text-warning">
+                        @for ($i = 0; $i < 5; $i++)
+                            @if ($i<$vote['value'])
+                            &#9733
+                            @else    
+                            &#9734
+                            @endif
+                        @endfor
+                      </td>
+      
+                    
+                    </tr>
+                      @endforeach
+                  </tbody>
+                </table>
+                <a href="{{route('dashboard')}}" class="btn btn-warning"><i class="fa-solid fa-arrow-rotate-left"></i> Indietro</a>
             </div>
-    </section>
+          </section>
     @endif
 @endsection

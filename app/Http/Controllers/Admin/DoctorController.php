@@ -28,8 +28,14 @@ class DoctorController extends Controller
         $doctor = Auth::user()->doctor;
         $name = Auth::user()->name;
         $specializations = Auth::user()->doctor->specializations->toArray();
+        $votes = Auth::user()->doctor->votes->toArray();
+        $sum = 0;
+        foreach ($votes as $vote)
+            $sum = $sum + $vote['value'];
 
-        return view('admin.doctors.index', compact('name', 'doctor', 'specializations'));
+        $media = $sum / count($votes);
+
+        return view('admin.doctors.index', compact('name', 'doctor', 'specializations', 'media'));
     }
 
     /**
