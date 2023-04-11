@@ -120,7 +120,17 @@ class DoctorController extends Controller
         return response()->json(compact('specialization'));
     }
 
-    //filter by specialization 
+    //filter by votes
+    public function voteDoctorIndex(string $id)
+    {
+        $vote = Vote::find($id);
+        if (!$vote) {
+            return response(null, 404);
+        }
+        $doctors = $vote->votes->all();
+
+        return response()->json(compact('vote'));
+    }
 
     public function reviewDoctorIndex(string $id)
     {
@@ -174,5 +184,11 @@ class DoctorController extends Controller
         $review->fill($data);
         $review->save();
         return response(null, 204);
+    }
+
+    //vote api route
+
+    public function getVote()
+    {
     }
 }

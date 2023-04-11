@@ -44,3 +44,5 @@ Route::get('/votes', [DoctorController::class, 'votes']);
 
 //filter 
 Route::get('/specializations/{id}/doctors', [DoctorController::class, 'specializationDoctorIndex']);
+
+Route::get('/votes/{id}/doctors', [DoctorController::class, 'voteDoctorIndex']);
