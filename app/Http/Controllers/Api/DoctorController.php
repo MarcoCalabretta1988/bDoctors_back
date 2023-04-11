@@ -126,13 +126,12 @@ class DoctorController extends Controller
     //filter by votes
     public function voteDoctorIndex(string $id)
     {
-        $vote = Vote::find($id);
-        if (!$vote) {
+        $media = Doctor::find($id)->votes->avg('value');
+        if (!$media) {
             return response(null, 404);
         }
-        $doctors = $vote->votes->all();
 
-        return response()->json(compact('vote'));
+        return response()->json(compact('media'));
     }
 
     public function reviewDoctorIndex(string $id)
