@@ -10,6 +10,9 @@
   </div>
 @endif
 
+@if (!$messages[0])
+<h1 class="p-blu t-shadow text-center">Non ci sono nuovi messaggi !</h1>                      
+@else
             <table class="table table-dark ">
                 <thead>
                   <tr>
@@ -21,9 +24,6 @@
                   </tr>
                 </thead>
                 <tbody >
-                  @if (!$messages[0])
-                  <h1 class="p-blu t-shadow">Non ci sono nuovi messaggi !</h1>                      
-                  @else
                   @foreach ($messages as $message)
                 <tr class="{{ $message->is_read ? "text-secondary" : "text-white"}}">    
                   <th scope="row">{{$message->name}}</th>
