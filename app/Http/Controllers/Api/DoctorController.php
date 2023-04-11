@@ -155,6 +155,20 @@ class DoctorController extends Controller
     {
 
         $data = $request->all();
+        //validation for review
+        $validator = Validator::make(
+            $data,
+            [
+
+                'name' => 'bail|required|string',
+                'text' => 'bail|required|string',
+            ],
+
+
+        );
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
         $review = new Review();
 
         $review->fill($data);
