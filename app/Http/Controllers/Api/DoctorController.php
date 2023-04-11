@@ -123,13 +123,30 @@ class DoctorController extends Controller
     //filter by votes
     public function voteDoctorIndex(string $id)
     {
-        $vote = Vote::find($id);
-        if (!$vote) {
+        //! take doctor per id for calculate media
+        $doctor = Doctor::find($id);
+        if (!$doctor) {
             return response(null, 404);
         }
-        $doctors = $vote->votes->all();
+        //take single doctor whith id
+        $votes = $doctor->votes;
+        if ($votes->count() > 0) {
+            $sum = 0;
+            foreach ($votes as $vote) {
+                $sum += $vote->value;
+            }
+            $media = $sum / $votes->count();
+        } else {
+            //! set media at zero if not exist
+            $media = 0;
+        }
+        //doctor media and id correlation
+        $doctorData = [
+            'id' => $doctor->id,
+            'media' => $media
+        ];
 
-        return response()->json(compact('vote'));
+        return response()->json($doctorData);
     }
 
     public function reviewDoctorIndex(string $id)
