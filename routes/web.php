@@ -26,8 +26,8 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     $id = Auth::id();
-    $messages = Message::where('id', $id)->where('is_read', false)->get()->count();
-    $reviews = Review::where('id', $id)->where('is_read', false)->get()->count();
+    $messages = Message::where('doctor_id', $id)->where('is_read', false)->get()->count();
+    $reviews = Review::where('doctor_id', $id)->where('is_read', false)->get()->count();
     return view('dashboard', compact('messages', 'reviews'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
