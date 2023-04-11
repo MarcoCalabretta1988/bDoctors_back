@@ -143,7 +143,7 @@ class DoctorController extends Controller
         return response()->json($specialization);
     }
 
-    public function vote()
+    public function votes()
     {
 
         $votes = Vote::all();
