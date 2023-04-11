@@ -10,7 +10,7 @@ class Review extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['text', 'name'];
+    protected $fillable = ['text', 'name', 'doctor_id'];
     //correlation whith doctors 
 
     public function doctor()

@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
+
+
 class DoctorController extends Controller
 {
     /**
@@ -145,7 +147,12 @@ class DoctorController extends Controller
         $request->validate(
             [
                 'address' => 'required|string',
-                'phone' => ['required', 'string', Rule::unique('doctors')->ignore($doctor->id), 'min:6', 'max:50',],
+                'phone' => [
+                    'required',
+                    'string', Rule::unique('doctors')->ignore($doctor->id),
+                    'min:6',
+                    'max:50',
+                ],
                 'curriculum' => 'nullable|image|mimes:jpg,jpeg,png',
                 'photo' => 'nullable|image|mimes:jpg,jpeg,png',
                 'city' => 'nullable|string'
@@ -171,14 +178,16 @@ class DoctorController extends Controller
             }
             $photo = Storage::put('uploads', $data['photo']);
             $data['photo'] = $photo;
-        };
+        }
+        ;
         if (Arr::exists($data, 'curriculum')) {
             if ($doctor->curriculum) {
                 Storage::delete($doctor->curriculum);
             }
             $curriculum = Storage::put('uploads', $data['curriculum']);
             $data['curriculum'] = $curriculum;
-        };
+        }
+        ;
         $doctor->update($data);
 
         //!specialization atach in db

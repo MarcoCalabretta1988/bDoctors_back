@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MessageMail;
+use App\Models\Message;
 
 class DoctorController extends Controller
 {
@@ -120,7 +123,17 @@ class DoctorController extends Controller
         return response()->json(compact('specialization'));
     }
 
-    //filter by specialization 
+    //filter by votes
+    public function voteDoctorIndex(string $id)
+    {
+        $vote = Vote::find($id);
+        if (!$vote) {
+            return response(null, 404);
+        }
+        $doctors = $vote->votes->all();
+
+        return response()->json(compact('vote'));
+    }
 
     public function reviewDoctorIndex(string $id)
     {
@@ -149,5 +162,57 @@ class DoctorController extends Controller
         $votes = Vote::all();
 
         return response()->json($votes);
+    }
+
+    public function getREwiev(Request $request)
+    {
+
+        $data = $request->all();
+        //validation for review
+        $validator = Validator::make(
+            $data,
+            [
+
+                'name' => 'bail|required|string',
+                'text' => 'bail|required|string',
+            ],
+
+
+        );
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+        $review = new Review();
+
+        $review->fill($data);
+        $review->save();
+        return response(null, 204);
+    }
+
+    //vote api route
+
+    public function getVote()
+    {
+    }
+    public function messageMail(Request $request)
+    {
+        $data = $request->all();
+        $sender = $data['sender'];
+        $subject = $data['subject'];
+        $message = $data['message'];
+
+        $mail = new MessageMail($sender, $subject, $message);
+        Mail::to($sender)->send($mail);
+        $new_message = new Message();
+        $new_message->email = $sender;
+        $new_message->name = $subject;
+        $new_message->text = $message;
+        $new_message->is_read = 0;
+
+        //! AGGIUNGERE COLLEGAMENTO CON ID DOTTORE**************************
+        $new_message->doctor_id = 1;
+        //! *************************************
+        $new_message->save();
+        return response(null, 204);
     }
 }
