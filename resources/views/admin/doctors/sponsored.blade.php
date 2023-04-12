@@ -31,7 +31,7 @@
                    <li class="flex">
                        <span><i class="fa-solid fa-ranking-star"></i> </span>
                        <span>Appari tra i primi risultati della ricerca</span></li>
-                   <li><button class="btn btn-primary">Acquista ora</button></li>
+                   <li><a href="{{route('admin.doctors.paymentForm' , 1)}}" class="btn btn-primary">Acquista ora!</a></li>
             
                </ul>
                <hr>
@@ -60,7 +60,7 @@
                    <li class="flex">
                        <span><i class="fa-solid fa-ranking-star"></i> </span>
                        <span>Appari tra i primi risultati della ricerca</span></li>
-                   <li><button class="btn btn-primary">Acquista ora</button></li>
+                   <li><a href="{{route('admin.doctors.paymentForm' , 2)}}" class="btn btn-primary">Acquista ora!</a></li>
             
                </ul>
                <hr>
@@ -90,7 +90,7 @@
                    <li class="flex">
                        <span><i class="fa-solid fa-ranking-star"></i> </span>
                        <span>Appari tra i primi risultati della ricerca</span></li>
-                   <li><button class="btn btn-primary">Acquista ora</button></li>
+                   <li><a href="{{route('admin.doctors.paymentForm' , 3)}}" class="btn btn-primary">Acquista ora!</a></li>
             
                </ul>
                <hr>

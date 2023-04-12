@@ -46,6 +46,7 @@ Route::middleware('auth')->prefix('admin/doctors')->name('admin.doctors.')->grou
     Route::post('/', [DoctorController::class, 'store'])->name('store');
     //payment form routes
     Route::get('/sponsored', [DoctorController::class, 'sponsored'])->name('sponsored');
+    Route::get('/sponsored/{id}', [DoctorController::class, 'paymentForm'])->name('paymentForm');
     Route::put('/{doctor}/updatepro', [DoctorController::class, 'updatepro'])->name('updatepro');
 });
 

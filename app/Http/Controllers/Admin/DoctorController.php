@@ -178,14 +178,16 @@ class DoctorController extends Controller
             }
             $photo = Storage::put('uploads', $data['photo']);
             $data['photo'] = $photo;
-        };
+        }
+        ;
         if (Arr::exists($data, 'curriculum')) {
             if ($doctor->curriculum) {
                 Storage::delete($doctor->curriculum);
             }
             $curriculum = Storage::put('uploads', $data['curriculum']);
             $data['curriculum'] = $curriculum;
-        };
+        }
+        ;
         $doctor->update($data);
 
         //!specialization atach in db
@@ -222,6 +224,12 @@ class DoctorController extends Controller
 
         return view('admin.doctors.sponsored', compact('sponsoreds'));
     }
+    public function paymentForm(int $id)
+    {
+        $sponsorization = Sponsored::findOrFail($id);
+        return view('admin.doctors.paymentForm', compact('sponsorization'));
+    }
+
 
     public function updatepro(Request $request, Doctor $doctor)
     {
