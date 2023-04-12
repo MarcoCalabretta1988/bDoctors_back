@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\DoctorController;
+use App\Http\Controllers\Api\Orders\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,3 +52,8 @@ Route::get('/specializations/{id}/doctors', [DoctorController::class, 'specializ
 Route::get('/votes/{id}/doctors', [DoctorController::class, 'voteDoctorIndex']);
 //mails
 Route::post('/messageMail', [DoctorController::class, 'messageMail']);
+
+
+//PAYMENT
+Route::get('orders/generate', [OrderController::class, 'generate']);
+Route::get('orders/make/payment', [OrderController::class, 'makePayment']);
