@@ -14,16 +14,16 @@
                     @endguest
                     @Auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
+                            <a class="nav-link  @if (request()->routeIs('dashboard*')) active @endif" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.doctors.index') }}">{{ __('Profilo') }}</a>
+                            <a class="nav-link  @if (request()->routeIs('admin.doctors*')) active @endif" href="{{ route('admin.doctors.index') }}">{{ __('Profilo') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.messages.index') }}">{{ __('Messaggi') }}</a>
+                            <a class="nav-link  @if (request()->routeIs('admin.messages*')) active @endif" href="{{ route('admin.messages.index') }}">{{ __('Messaggi') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.reviews.index') }}">{{ __('Recensioni') }}</a>
+                            <a class="nav-link  @if (request()->routeIs('admin.review*')) active @endif" href="{{ route('admin.reviews.index') }}">{{ __('Recensioni') }}</a>
                         </li>
                     @endauth
                 </ul>

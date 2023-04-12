@@ -215,12 +215,12 @@ class DoctorController extends Controller
         //
     }
 
-    public function changeToPro(Doctor $doctor)
+    public function sponsored()
     {
 
         $sponsoreds = Sponsored::all();
 
-        return view('admin.doctors.paymentForm', compact('doctor', 'sponsoreds'));
+        return view('admin.doctors.sponsored', compact('sponsoreds'));
     }
 
     public function updatepro(Request $request, Doctor $doctor)

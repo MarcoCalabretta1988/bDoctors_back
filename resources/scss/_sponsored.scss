@@ -1,0 +1,23 @@
+  /* SECTION PLANS */
+  #plans {
+      background-image: url(../../public/img/bg7.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      min-height: calc(100vh - 96px);
+      padding: 50px 0;
+
+      .container {
+
+          background-color: rgba($color: #000000, $alpha: 0.7);
+          color: $blue-secondary;
+          border-radius: 20px;
+
+
+
+          li {
+              padding: 10px 0;
+              list-style: none;
+          }
+      }
+
+  }
