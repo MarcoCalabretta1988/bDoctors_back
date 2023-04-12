@@ -226,6 +226,7 @@ class DoctorController extends Controller
     }
     public function paymentForm(int $id)
     {
+        //commento
         $sponsorization = Sponsored::findOrFail($id);
         return view('admin.doctors.paymentForm', compact('sponsorization'));
     }
