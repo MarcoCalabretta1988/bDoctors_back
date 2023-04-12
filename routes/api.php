@@ -53,7 +53,6 @@ Route::get('/votes/{id}/doctors', [DoctorController::class, 'voteDoctorIndex']);
 //mails
 Route::post('/messageMail', [DoctorController::class, 'messageMail']);
 
-
 //PAYMENT
 Route::get('orders/generate', [OrderController::class, 'generate']);
-Route::get('orders/make/payment', [OrderController::class, 'makePayment']);
+Route::post('orders/make/payment', [OrderController::class, 'makePayment']);
