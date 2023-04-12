@@ -10,7 +10,7 @@
 
 <body>
     <div class="bg-img">
-
+       
 
         @include('includes.form')
 

@@ -49,8 +49,7 @@
                     </div>
                     <div class="col-12 my-3">
                         <h3 class="mb-5">Curriculum:</h3>
-                        <img src="{{ asset('storage/' . $doctor->curriculum) }}" alt="{{ $doctor->user->name }}"
-                            class="img-fluid">
+                        <a href="{{ asset('storage/' . $doctor->curriculum) }}" alt="{{ $doctor->user->name }}">Visualizza Curriculum</a>
                     </div>
                     <div class="col-12 d-flex justify-content-end">
                         <a href="{{ route('dashboard') }}" class="btn btn-warning me-2"><i

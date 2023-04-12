@@ -64,7 +64,7 @@ class DoctorController extends Controller
             [
                 'address' => 'required|string',
                 'phone' => 'required|unique:doctors|min:6',
-                'curriculum' => 'nullable|image|mimes:jpg,jpeg,png',
+                'curriculum' => 'nullable|mimes:pdf,xlxs,xlx,docx,doc,csv,txt',
                 'photo' => 'nullable|image|mimes:jpg,jpeg,png',
                 'city' => 'nullable|string'
             ],
@@ -153,7 +153,7 @@ class DoctorController extends Controller
                     'min:6',
                     'max:50',
                 ],
-                'curriculum' => 'nullable|image|mimes:jpg,jpeg,png',
+                'curriculum' => 'nullable|mimes:pdf,xlxs,xlx,docx,doc,csv,txt',
                 'photo' => 'nullable|image|mimes:jpg,jpeg,png',
                 'city' => 'nullable|string'
             ],
@@ -178,16 +178,14 @@ class DoctorController extends Controller
             }
             $photo = Storage::put('uploads', $data['photo']);
             $data['photo'] = $photo;
-        }
-        ;
+        };
         if (Arr::exists($data, 'curriculum')) {
             if ($doctor->curriculum) {
                 Storage::delete($doctor->curriculum);
             }
             $curriculum = Storage::put('uploads', $data['curriculum']);
             $data['curriculum'] = $curriculum;
-        }
-        ;
+        };
         $doctor->update($data);
 
         //!specialization atach in db
