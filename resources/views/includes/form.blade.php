@@ -22,7 +22,7 @@
                 {{-- form store --}}
                 <form action="{{ route('admin.doctors.store') }}" method="POST" enctype="multipart/form-data">
                     <h1 class="text-center py-5 p-blu t-shadow">Crea il tuo profilo</h1>
-                    @endif
+        @endif
 
 
         @csrf
@@ -76,7 +76,8 @@
                     <div class="mb-3">
                         <label for="curriculum" class="form-label ">Curriculum</label>
                         <input type="file" class="form-control @error('curriculum') is-invalid @enderror" id="curriculum"
-                            name="curriculum" placeholder="Carica un curriculum">
+                            name="curriculum" placeholder="Carica un curriculum"
+                            accept="application/pdf,application/vnd.ms-excel">
                         @error('curriculum')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -91,7 +92,7 @@
                         alt="{{ old('name', $doctor->name) }}" class="img-fluid" id="curriculum-prev"
                         style="max-height: 150px">
                 </div> --}}
-                
+
                 {{-- sponsored select --}}
                 {{-- @if ($doctor->exists)
                     <div class="col-5">
