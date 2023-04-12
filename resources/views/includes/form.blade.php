@@ -17,15 +17,17 @@
         @if ($doctor->exists)
             <form action="{{ route('admin.doctors.update', $doctor->id) }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
+                <h1 class="text-center py-5 p-blu t-shadow">Modifica il tuo profilo</h1>
             @else
                 {{-- form store --}}
                 <form action="{{ route('admin.doctors.store') }}" method="POST" enctype="multipart/form-data">
-        @endif
+                    <h1 class="text-center py-5 p-blu t-shadow">Crea il tuo profilo</h1>
+                    @endif
 
 
         @csrf
 
-        <div class="my-5 p-5 rounded border border-primary" id="form-board">
+        <div class=" p-5 rounded border border-primary" id="form-board">
             <div class="row">
                 {{-- adress --}}
                 <div class="col-5 mb-3">
@@ -107,7 +109,7 @@
 
 
             {{-- phone --}}
-            <div class="mb-3">
+            <div class=" col-3 mb-3">
                 <label for="phone" class="form-label">Numero di Recapito</label>
                 <input type="text" class="form-control  @error('phone') is-invalid @enderror" id="phone"
                     name="phone" value="{{ old('phone', $doctor->phone) }}" placeholder="il tuo numero di telefono">
@@ -116,6 +118,7 @@
                 @enderror
             </div>
             {{-- Specialization --}}
+            <h3>Specializzazioni:</h3>
             <div class="d-flex flex-wrap">
                 @foreach ($specializations as $specialization)
                     <label for="{{ $specialization->name }}">{{ $specialization->name }}</label>
