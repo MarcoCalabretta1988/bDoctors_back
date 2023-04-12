@@ -14,9 +14,10 @@
 
         <div class="container bg-light welcome-box rounded">
 
-            <form action="{{ route('admin.doctors.updatepro', $doctor->id) }}" method="POST" class="row g-3 py-5" novalidate>
-                @method('PUT')
+            <form action="{{ route('admin.doctors.updatepro', $doctor->id) }}" id="payment-form" method="POST" class="row g-3 py-5" novalidate>
                 @csrf
+                <div id="dropin-container"></div>
+                <input type="hidden" id="nonce" name="payment_method_nonce"/>
                 {{-- NUMERO CARTA --}}
                 <div class="col-md-4">
                     <div class="title-wrapper d-flex justify-content-between">
@@ -79,4 +80,29 @@
             </form>
         </div>
     </div>
+@endsection
+@section('scripts')
+<script>
+    //! script per pagamento -daniele
+
+    const form = document.getElementById('payment-form');
+
+    braintree.dropin.create({
+    authorization: 'CLIENT_AUTHORIZATION',
+    container: '#dropin-container'
+    }, 
+    (error, dropinInstance) => {
+        if (error) console.error(error);
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+
+            dropinInstance.requestPaymentMethod((error, payload) => {
+                if (error) console.error(error);
+                document.getElementById('nonce').value = payload.nonce;
+                form.submit();
+            });
+        });
+    });
+</script>
 @endsection

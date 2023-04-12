@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\DoctorController;
+use App\Http\Controllers\Api\SponsorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,3 +52,6 @@ Route::get('/specializations/{id}/doctors', [DoctorController::class, 'specializ
 Route::get('/votes/{id}/doctors', [DoctorController::class, 'voteDoctorIndex']);
 //mails
 Route::post('/MessageMail', [DoctorController::class, 'messageMail']);
+//payments
+Route::get('/GetToken', [SponsorController::class, 'token']);
+Route::post('/transaction', [SponsorController::class, 'transaction']);

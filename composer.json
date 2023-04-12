@@ -9,10 +9,12 @@
         "guzzlehttp/guzzle": "^7.2",
         "lanciweb/laravel-make-crud": "^1.0",
         "lanciweb/laravel-make-view": "^1.2",
+        "laravel/cashier": "^14.11",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
-        "pacificdev/laravel_9_preset": "^1.1"
+        "pacificdev/laravel_9_preset": "^1.1",
+        "braintree/braintree_php" : "6.11.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
