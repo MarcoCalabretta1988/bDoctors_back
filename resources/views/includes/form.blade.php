@@ -76,7 +76,7 @@
                     <div class="mb-3">
                         <label for="curriculum" class="form-label ">Curriculum</label>
                         <input type="file" class="form-control @error('curriculum') is-invalid @enderror" id="curriculum"
-                            name="curriculum" placeholder="inserisci una foto del tuo curriculum" accept="image/*">
+                            name="curriculum" placeholder="Carica un curriculum">
                         @error('curriculum')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -85,12 +85,13 @@
 
                 </div>
                 {{-- CURRICULUM PREVIEW --}}
-                <div class="col-2">
+                {{-- <div class="col-2">
                     <label for="curriculum-prev" class="form-label ">Anteprima curriculum:</label>
                     <img src="{{ $doctor->curriculum ? asset('storage/' . $doctor->curriculum) : 'https://media.istockphoto.com/id/1357365823/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=PM_optEhHBTZkuJQLlCjLz-v3zzxp-1mpNQZsdjrbns=' }}"
                         alt="{{ old('name', $doctor->name) }}" class="img-fluid" id="curriculum-prev"
                         style="max-height: 150px">
-                </div>
+                </div> --}}
+                
                 {{-- sponsored select --}}
                 {{-- @if ($doctor->exists)
                     <div class="col-5">
