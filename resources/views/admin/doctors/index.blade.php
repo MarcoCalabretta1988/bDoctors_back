@@ -56,8 +56,7 @@
                                 class="fa-solid fa-arrow-rotate-left"></i> Indietro</a>
                         <a href="{{ route('admin.doctors.edit', $doctor->id) }}" class="btn btn-success me-2"><i
                                 class="fa-solid fa-pencil"></i> Modifica</a>
-                        <a href="{{ route('admin.doctors.paymentform', $doctor->id) }}" class="btn btn-success"><i
-                                class="fa-regular fa-credit-card"></i> Passa a pro</a>
+                        <a href="{{ route('admin.doctors.sponsored') }}" class="btn btn-info"><i class="fa-solid fa-turn-up"></i> Passa a pro</a>
                     </div>
                 </div>
             </div>

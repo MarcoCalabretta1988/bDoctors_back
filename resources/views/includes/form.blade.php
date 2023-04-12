@@ -2,6 +2,9 @@
 
 
 @section('content')
+<section id="form">
+
+
     <div class="container">
         {{-- ERROR ALERT --}}
         @if ($errors->any())
@@ -147,6 +150,7 @@
 
     </form>
     </div>
+</section>
 @endsection
 
 @section('scripts')
