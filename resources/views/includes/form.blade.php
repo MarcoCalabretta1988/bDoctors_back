@@ -2,6 +2,9 @@
 
 
 @section('content')
+<section id="form">
+
+
     <div class="container">
         {{-- ERROR ALERT --}}
         @if ($errors->any())
@@ -17,15 +20,17 @@
         @if ($doctor->exists)
             <form action="{{ route('admin.doctors.update', $doctor->id) }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
+                <h1 class="text-center py-5 p-blu t-shadow">Modifica il tuo profilo</h1>
             @else
                 {{-- form store --}}
                 <form action="{{ route('admin.doctors.store') }}" method="POST" enctype="multipart/form-data">
+                    <h1 class="text-center py-5 p-blu t-shadow">Crea il tuo profilo</h1>
         @endif
 
 
         @csrf
 
-        <div class="my-5 p-5 rounded border border-primary" id="form-board">
+        <div class=" p-5 rounded border border-primary" id="form-board">
             <div class="row">
                 {{-- adress --}}
                 <div class="col-5 mb-3">
@@ -74,7 +79,8 @@
                     <div class="mb-3">
                         <label for="curriculum" class="form-label ">Curriculum</label>
                         <input type="file" class="form-control @error('curriculum') is-invalid @enderror" id="curriculum"
-                            name="curriculum" placeholder="inserisci una foto del tuo curriculum" accept="image/*">
+                            name="curriculum" placeholder="Carica un curriculum"
+                            accept="application/pdf,application/vnd.ms-excel">
                         @error('curriculum')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -83,12 +89,13 @@
 
                 </div>
                 {{-- CURRICULUM PREVIEW --}}
-                <div class="col-2">
+                {{-- <div class="col-2">
                     <label for="curriculum-prev" class="form-label ">Anteprima curriculum:</label>
                     <img src="{{ $doctor->curriculum ? asset('storage/' . $doctor->curriculum) : 'https://media.istockphoto.com/id/1357365823/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=PM_optEhHBTZkuJQLlCjLz-v3zzxp-1mpNQZsdjrbns=' }}"
                         alt="{{ old('name', $doctor->name) }}" class="img-fluid" id="curriculum-prev"
                         style="max-height: 150px">
-                </div>
+                </div> --}}
+
                 {{-- sponsored select --}}
                 {{-- @if ($doctor->exists)
                     <div class="col-5">
@@ -107,7 +114,7 @@
 
 
             {{-- phone --}}
-            <div class="mb-3">
+            <div class=" col-3 mb-3">
                 <label for="phone" class="form-label">Numero di Recapito</label>
                 <input type="text" class="form-control  @error('phone') is-invalid @enderror" id="phone"
                     name="phone" value="{{ old('phone', $doctor->phone) }}" placeholder="il tuo numero di telefono">
@@ -116,6 +123,7 @@
                 @enderror
             </div>
             {{-- Specialization --}}
+            <h3>Specializzazioni:</h3>
             <div class="d-flex flex-wrap">
                 @foreach ($specializations as $specialization)
                     <label for="{{ $specialization->name }}">{{ $specialization->name }}</label>
@@ -142,6 +150,7 @@
 
     </form>
     </div>
+</section>
 @endsection
 
 @section('scripts')

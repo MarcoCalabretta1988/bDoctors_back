@@ -199,12 +199,17 @@ class DoctorController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    /**
+     * Send Email route.
+     */
     public function messageMail(Request $request)
     {
         $data = $request->all();
         $sender = $data['sender'];
         $subject = $data['subject'];
         $message = $data['message'];
+        $doctor_id = $data['doctor_id'];
 
         $mail = new MessageMail($sender, $subject, $message);
         // todo aggiungere la mail del dottore al quale mandare la mail del nuovo messaggio, anche nel cosntruct se serve
@@ -217,7 +222,7 @@ class DoctorController extends Controller
         $new_message->is_read = 0;
 
         //! AGGIUNGERE COLLEGAMENTO CON ID DOTTORE
-        $new_message->doctor_id = 1;
+        $new_message->doctor_id = $doctor_id;
         $new_message->save();
         return response(null, 204);
     }

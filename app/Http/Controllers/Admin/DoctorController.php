@@ -64,7 +64,7 @@ class DoctorController extends Controller
             [
                 'address' => 'required|string',
                 'phone' => 'required|unique:doctors|min:6',
-                'curriculum' => 'nullable|image|mimes:jpg,jpeg,png',
+                'curriculum' => 'nullable|mimes:pdf,xlxs,xlx,docx,doc,csv,txt',
                 'photo' => 'nullable|image|mimes:jpg,jpeg,png',
                 'city' => 'nullable|string'
             ],
@@ -153,7 +153,7 @@ class DoctorController extends Controller
                     'min:6',
                     'max:50',
                 ],
-                'curriculum' => 'nullable|image|mimes:jpg,jpeg,png',
+                'curriculum' => 'nullable|mimes:pdf,xlxs,xlx,docx,doc,csv,txt',
                 'photo' => 'nullable|image|mimes:jpg,jpeg,png',
                 'city' => 'nullable|string'
             ],
@@ -217,13 +217,20 @@ class DoctorController extends Controller
         //
     }
 
-    public function changeToPro(Doctor $doctor)
+    public function sponsored()
     {
 
         $sponsoreds = Sponsored::all();
 
-        return view('admin.doctors.paymentForm', compact('doctor', 'sponsoreds'));
+        return view('admin.doctors.sponsored', compact('sponsoreds'));
     }
+    public function paymentForm(int $id)
+    {
+        //commento
+        $sponsorization = Sponsored::findOrFail($id);
+        return view('admin.doctors.paymentForm', compact('sponsorization'));
+    }
+
 
     public function updatepro(Request $request, Doctor $doctor)
     {

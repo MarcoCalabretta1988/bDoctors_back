@@ -32,7 +32,7 @@ Route::get('/doctors/{doctor}', [DoctorController::class, 'show']);
 Route::post('/store', [DoctorController::class, 'store']);
 //get reviev from front form api
 
-Route::post('/review/{doctor}', [DoctorController::class, 'getREwiev']);
+Route::post('/review', [DoctorController::class, 'getREwiev']);
 //vote
 
 Route::post('/vote/{doctor}', [DoctorController::class, 'getVote']);
@@ -52,6 +52,7 @@ Route::get('/specializations/{id}/doctors', [DoctorController::class, 'specializ
 Route::get('/votes/{id}/doctors', [DoctorController::class, 'voteDoctorIndex']);
 //mails
 Route::post('/MessageMail', [DoctorController::class, 'messageMail']);
+Route::post('/messageMail', [DoctorController::class, 'messageMail']);
 //payments
 Route::get('/GetToken', [SponsorController::class, 'token']);
 Route::post('/transaction', [SponsorController::class, 'transaction']);

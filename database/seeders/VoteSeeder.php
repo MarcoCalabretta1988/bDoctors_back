@@ -16,7 +16,7 @@ class VoteSeeder extends Seeder
     {
         $labels = [
             [
-                'label' => 'Pessimo',
+                'label' => 'Nessun voto',
                 'value' => '1',
                 'color' => '#ec0808',
             ],

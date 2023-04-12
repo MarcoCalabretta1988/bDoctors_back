@@ -14,7 +14,8 @@
 
         <div class="container bg-light welcome-box rounded">
 
-            <form action="{{ route('admin.doctors.updatepro', $doctor->id) }}" id="payment-form" method="POST" class="row g-3 py-5" novalidate>
+            <form action="" method="POST" class="row g-3 py-5" novalidate>
+                @method('PUT')
                 @csrf
                 <div id="dropin-container"></div>
                 <input type="hidden" id="nonce" name="payment_method_nonce"/>
@@ -51,18 +52,6 @@
                     <div class="col-3 cvv">
                         <img src="{{url('/img/cvv-icon-27.jpg')}}" class="img-fluid " alt="cvv illustration">
                     </div>
-                </div>
-                {{-- PIANO --}}
-                <div class="col-md-3">
-                    <label for="validationDefault03" class="form-label">Scegli un piano</label>
-                    <select class="form-select" id="validationDefault04" name="sponsored_ad">
-                        <option value="" selected>---</option>
-                        @foreach ($sponsoreds as $sponsored)
-                            <option value="{{ $sponsored->id }}">{{ $sponsored->name }} costo:
-                                {{ $sponsored->cost }}€</option>
-                        @endforeach
-
-                    </select>
                 </div>
                 {{-- TERMINI E CONDIZIONI --}}
                 <div class="col-12">
