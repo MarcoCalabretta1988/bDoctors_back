@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('label');
             $table->tinyInteger('value');
-            $table->string('color', 20);
+            $table->string('color', 20)->nullable();
             $table->timestamps();
         });
     }
