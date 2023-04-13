@@ -35,7 +35,7 @@ Route::post('/store', [DoctorController::class, 'store']);
 Route::post('/review', [DoctorController::class, 'getREwiev']);
 //vote
 
-Route::post('/doctor/{doctor}/vote', [DoctorController::class, 'getVote']);
+Route::post('/doctors/{doctor}/vote', [DoctorController::class, 'getVote']);
 
 
 //specializations
