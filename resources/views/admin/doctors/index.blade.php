@@ -17,14 +17,14 @@
                         @if ($doctor->photo)
                             <img src="{{ asset('storage/' . $doctor->photo) }}" alt="{{ $doctor->user->name }}"
                                 class="img-fluid position-relative ">
+                                @else
+                                <img src="https://st2.depositphotos.com/1743476/5738/i/450/depositphotos_57385697-stock-photo-confident-mature-doctor.jpg"
+                                alt="placeholder" class="img-fluid position-relative">
+                                @endif
                                 @if ($doctor->is_sponsored)
                                 <img src="{{ asset('img/Sponsored.jpg') }}" alt="{{ $doctor->user->name }}"
                                     class="img-fluid position-absolute" style="width: 80px; top:0; left:15px">
                                   @endif
-                        @else
-                            <img src="https://st2.depositphotos.com/1743476/5738/i/450/depositphotos_57385697-stock-photo-confident-mature-doctor.jpg"
-                                alt="placeholder" class="img-fluid">
-                        @endif
 
                     </div>
 
@@ -58,8 +58,12 @@
                         </ul>
                     </div>
                     <div class="col-12 my-3">
+                        @if($doctor->curriculum)
                         <h3 class="mb-5">Curriculum:</h3>
                         <a href="{{ asset('storage/' . $doctor->curriculum) }}" alt="{{ $doctor->user->name }}">Visualizza Curriculum</a>
+                        @else
+                        <h5>Nessun Curriculum caricato</h5>
+                        @endif
                     </div>
                     <div class="col-12 d-flex justify-content-end">
                         <a href="{{ route('dashboard') }}" class="btn btn-warning me-2"><i

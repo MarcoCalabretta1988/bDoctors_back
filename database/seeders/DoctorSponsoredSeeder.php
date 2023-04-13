@@ -22,8 +22,8 @@ class DoctorSponsoredSeeder extends Seeder
         $maxSponsoreds = count($sponsoreds) - 1;
 
         foreach ($doctors as $doctor) {
-            if ($faker->boolean()) {
-                $currentDoctor = Doctor::find($doctor);
+            $currentDoctor = Doctor::find($doctor);
+            if ($currentDoctor->is_sponsored) {
                 $sponsored = $sponsoreds[$faker->numberBetween(0, $maxSponsoreds)];
                 $sponsoredDuration = Sponsored::find($sponsored)->duration;
                 $start_at = Carbon::now(); // dynamic start date
