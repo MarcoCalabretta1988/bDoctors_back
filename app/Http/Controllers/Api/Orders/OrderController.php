@@ -19,10 +19,10 @@ class OrderController extends Controller
         ];
         return response()->json($data, 200);
     }
+
     public function makePayment(OrderRequest $request, Gateway $gateway)
     {
         $sponsored = Sponsored::find($request->sponsored);
-
         $result = $gateway->transaction()->sale([
             'amount' => $sponsored->cost,
             'paymentMethodNonce' => $request->token,

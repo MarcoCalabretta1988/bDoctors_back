@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Orders\OrderRequest;
 use App\Models\Doctor;
 use App\Models\DoctorSponsored;
 use App\Models\Specialization;
 use App\Models\Sponsored;
 use App\Models\User;
+use Braintree\Gateway;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -178,16 +180,14 @@ class DoctorController extends Controller
             }
             $photo = Storage::put('uploads', $data['photo']);
             $data['photo'] = $photo;
-        }
-        ;
+        };
         if (Arr::exists($data, 'curriculum')) {
             if ($doctor->curriculum) {
                 Storage::delete($doctor->curriculum);
             }
             $curriculum = Storage::put('uploads', $data['curriculum']);
             $data['curriculum'] = $curriculum;
-        }
-        ;
+        };
         $doctor->update($data);
 
         //!specialization atach in db
@@ -224,35 +224,41 @@ class DoctorController extends Controller
 
         return view('admin.doctors.sponsored', compact('sponsoreds'));
     }
-    public function paymentForm(int $id)
+    public function paymentForm(int $id, Gateway $gateway)
     {
-        //commento
+        $token = $gateway->clientToken()->generate();
+        $data = [
+            'success' => true,
+            'token' => $token
+        ];
         $sponsorization = Sponsored::findOrFail($id);
-        return view('admin.doctors.paymentForm', compact('sponsorization'));
+        return view('admin.doctors.paymentForm', compact('sponsorization', 'data'));
     }
 
 
-    public function updatepro(Request $request, Doctor $doctor)
+    public function makePayment(OrderRequest $request, Gateway $gateway)
     {
-        $data = $request->all();
-        //!  select metod for sponsorization 
-        if (Arr::exists($data, 'sponsored_ad')) { // controll if a sponsored_at has selected
-            $sponsored = Sponsored::findOrFail($data['sponsored_ad']);
-            $duration = DB::table('sponsoreds')->where('id', $data['sponsored_ad'])->value('duration');
-            $start_at = Carbon::now(); // dynamic start date
-            $end_at = $start_at->copy()->addHours($duration); // calculate end date based on start date and sponsored duration in hours
-            $durationInDays = $start_at->diffInDays($end_at); // calculate duration in days
-            $start_at = $start_at->format('Y/m/d'); // format start date year/mounth/day
-            $end_at = $end_at->format('Y/m/d'); // format end date with year/mounth/day
-            $doctor->sponsoreds()->sync([
-                $sponsored->id => [
-                    'start_at' => $start_at,
-                    'end_at' => $end_at,
-                ]
-            ]);
+        $sponsored = Sponsored::find($request->sponsored);
+        $result = $gateway->transaction()->sale([
+            'amount' => $sponsored->cost,
+            'paymentMethodNonce' => $request->token,
+            'options' => [
+                'submitForSettlement' => true
+            ]
+        ]);
+        $doctor = Auth::user()->doctor;
+        if ($doctor->is_sponsored) {
+            return to_route('admin.doctors.index')->with('type', 'danger')->with('msg', 'Sei già sponsorizzato');
         } else {
-            $doctor->sponsoreds()->detach();
+
+            if ($result->success) {
+                $doctor->is_sponsored = 1;
+                $doctor->save();
+                return to_route('admin.doctors.index')->with('type', 'success')->with('msg', 'Transazione Eseguita con successo');
+            } else {
+
+                return to_route('admin.doctors.index')->with('type', 'danger')->with('msg', 'Transazione negata');
+            }
         }
-        return to_route('admin.doctors.index');
     }
 }

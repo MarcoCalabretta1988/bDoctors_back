@@ -4,13 +4,23 @@
 
     <section id='profile'>
         <div class="container">
+            @if (session('msg'))
+  <div class="alert alert-{{ session('type') ?? 'info' }} mt-5">
+    {{ session('msg') }}
+  </div>
+@endif
             <div class="profile-box p-5">
                 <h1 class="text-center t-shadow pb-5">PROFILO</h1>
+               
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-3 position-relative">
                         @if ($doctor->photo)
                             <img src="{{ asset('storage/' . $doctor->photo) }}" alt="{{ $doctor->user->name }}"
-                                class="img-fluid">
+                                class="img-fluid position-relative ">
+                                @if ($doctor->is_sponsored)
+                                <img src="{{ asset('img/Sponsored.jpg') }}" alt="{{ $doctor->user->name }}"
+                                    class="img-fluid position-absolute" style="width: 80px; top:0; left:15px">
+                                  @endif
                         @else
                             <img src="https://st2.depositphotos.com/1743476/5738/i/450/depositphotos_57385697-stock-photo-confident-mature-doctor.jpg"
                                 alt="placeholder" class="img-fluid">

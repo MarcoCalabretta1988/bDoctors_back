@@ -54,5 +54,5 @@ Route::get('/votes/{id}/doctors', [DoctorController::class, 'voteDoctorIndex']);
 Route::post('/messageMail', [DoctorController::class, 'messageMail']);
 
 //PAYMENT
-Route::get('orders/generate', [OrderController::class, 'generate']);
-Route::post('orders/make/payment', [OrderController::class, 'makePayment']);
+Route::get('orders/generate', [OrderController::class, 'generate'])->name('api.orders.generate');
+Route::post('orders/make/payment', [OrderController::class, 'makePayment'])->name('api.orders.payment');

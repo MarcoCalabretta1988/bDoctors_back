@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Api\Orders\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Message;
 use App\Models\Review;
@@ -70,3 +71,6 @@ Route::resource('admin/reviews', App\Http\Controllers\Admin\ReviewController::cl
 Route::get('/review/trash', [ReviewController::class, 'trash'])->name('admin.reviews.trash');
 Route::patch('/review/{id}/restore', [ReviewController::class, 'restore'])->name('admin.reviews.restore');
 Route::delete('/review/{id}/delete', [ReviewController::class, 'delete'])->name('admin.reviews.delete');
+
+
+Route::post('admin/orders/make/payment', [DoctorController::class, 'makePayment'])->name('admin.orders.payment');
