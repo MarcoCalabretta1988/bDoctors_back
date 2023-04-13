@@ -25,7 +25,10 @@ class SponsorController extends Controller
 
         $result = $gateway->transaction()->sale([
             'amount' => '10.00',
-            'payedMethodNonce' => $request->token
+            'paymentMethodNonce' => $request->token,
+            'options' => [
+                'submitForSettlement' => true,
+            ]
         ]);
 
         if ($result->success) {
