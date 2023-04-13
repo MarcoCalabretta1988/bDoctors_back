@@ -238,6 +238,34 @@ class DoctorController extends Controller
 
     public function makePayment(OrderRequest $request, Gateway $gateway)
     {
+
+
+
+        $request->validate(
+            [
+                'card' => 'required|string|min:16|max:16',
+                'cvv' => 'required|integer|min:100|max:999',
+                'expired' => 'required',
+                'token' => 'required|string',
+                'sponsored' => 'required|string',
+
+            ],
+            [
+
+                'expired.required' => "La data di scadenza è obbligatoria",
+                'card.required' => "Il numero carta è obbligatiorio",
+                'card.string' => "Il capo numero carta deve essere una stringa",
+                'card.min' => "Il capo numero carta deve essere minimo 16 numeri",
+                'card.max' => "Il capo numero carta deve essere massimo 16 numeri",
+                'cvv.required' => "Il cvv è obbligatorio",
+                'cvv.max' => "Il cvv deve contenere massimo 3 caratteri",
+                'cvv.min' => "Il cvv deve contenere minimo 3 caratteri",
+                'token.required' => "Il token è obbligatiorio",
+                'sponsored.required' => "Il riferimento a una sponosrizzata è obbligatiorio",
+            ]
+        );
+
+
         $sponsored = Sponsored::find($request->sponsored);
         $result = $gateway->transaction()->sale([
             'amount' => $sponsored->cost,
