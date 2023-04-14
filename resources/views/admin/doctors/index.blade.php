@@ -22,8 +22,8 @@
                                 alt="placeholder" class="img-fluid position-relative">
                                 @endif
                                 @if ($doctor->is_sponsored)
-                                <img src="{{ asset('img/Sponsored.jpg') }}" alt="{{ $doctor->user->name }}"
-                                    class="img-fluid position-absolute" style="width: 80px; top:0; left:15px">
+                                <img src="{{ asset('img/Sponsored.png') }}" alt="{{ $doctor->user->name }}"
+                                    class="img-fluid position-absolute" style="width: 80px; top:-10px; left:0">
                                   @endif
 
                     </div>
