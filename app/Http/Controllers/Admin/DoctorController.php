@@ -294,6 +294,10 @@ class DoctorController extends Controller
                     ]
                 ]);
                 $doctor->save();
+
+                //automatic detach if end at > then Now
+                $doctor->sponsoreds()->wherePivot('end_at', '<', Carbon::now())->detach($sponsored->id);
+
                 return to_route('admin.doctors.index')->with('type', 'success')->with('msg', 'Transazione Eseguita con successo');
             } else {
 
