@@ -69,7 +69,7 @@
                     
                       @foreach ($votes as $vote)
                       <tr>    
-                      <th scope="row" ><span class="p-1 rounded" style="background-color: {{$vote['color']}}">{{$vote['label']}}</span></th>
+                      <th scope="row" ><span class="p-1 rounded" style="background-color: {{$vote['color']}}">@if($vote['label'] === 'Nessun voto')Pessimo @else{{$vote['label']}}@endif</span></th>
                      
                       <td class="text-warning">
                         @for ($i = 0; $i < 5; $i++)
