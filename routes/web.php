@@ -50,10 +50,6 @@ Route::middleware('auth')->prefix('admin/doctors')->name('admin.doctors.')->grou
     Route::get('/sponsored/{id}', [DoctorController::class, 'paymentForm'])->name('paymentForm');
     Route::put('/{doctor}/updatepro', [DoctorController::class, 'updatepro'])->name('updatepro');
 });
-
-
-require __DIR__ . '/auth.php';
-
 //Doctors Route
 
 Route::resource('admin/doctors', App\Http\Controllers\Admin\DoctorController::class, ['as' => 'admin']);
@@ -74,3 +70,6 @@ Route::delete('/review/{id}/delete', [ReviewController::class, 'delete'])->name(
 
 
 Route::post('admin/orders/make/payment', [DoctorController::class, 'makePayment'])->name('admin.orders.payment');
+
+
+require __DIR__ . '/auth.php';
