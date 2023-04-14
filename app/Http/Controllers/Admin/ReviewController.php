@@ -42,10 +42,14 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        $review->is_read = true;
-        $review->save();
+        if (Auth::user()->doctor->id != $review->doctor_id) {
+            return to_route('admin.reviews.index')->with('type', 'danger')->with('msg', 'ATTENZIONE!! Utente non autorizzato a vedere recensioni non proprie');
+        } else {
+            $review->is_read = true;
+            $review->save();
 
-        return view('admin.reviews.show', compact('review'));
+            return view('admin.reviews.show', compact('review'));
+        }
     }
 
     /**

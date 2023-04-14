@@ -135,10 +135,15 @@ class DoctorController extends Controller
      */
     public function edit(Doctor $doctor)
     {
-        $sponsoreds = Sponsored::all();
-        $specializations = Specialization::all();
-        $doctor_spec = $doctor->specializations->pluck('id')->toArray();
-        return view('admin.doctors.edit', compact('doctor', 'specializations', 'doctor_spec', 'sponsoreds'));
+        if (Auth::user()->doctor->id != $doctor->id) {
+            return to_route('admin.doctors.index')->with('type', 'danger')->with('msg', 'ATTENZIONE!! Utente non autorizzato a modificare profili non propri');
+        } else {
+
+            $sponsoreds = Sponsored::all();
+            $specializations = Specialization::all();
+            $doctor_spec = $doctor->specializations->pluck('id')->toArray();
+            return view('admin.doctors.edit', compact('doctor', 'specializations', 'doctor_spec', 'sponsoreds'));
+        }
     }
 
     /**
@@ -146,6 +151,7 @@ class DoctorController extends Controller
      */
     public function update(Request $request, Doctor $doctor)
     {
+
         $request->validate(
             [
                 'address' => 'required|string',

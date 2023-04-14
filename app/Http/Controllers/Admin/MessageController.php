@@ -40,10 +40,14 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
-        $message->is_read = true;
-        $message->save();
+        if (Auth::user()->doctor->id != $message->doctor_id) {
+            return to_route('admin.messages.index')->with('type', 'danger')->with('msg', 'ATTENZIONE!! Utente non autorizzato a vedere messaggi non propri');
+        } else {
+            $message->is_read = true;
+            $message->save();
 
-        return view('admin.messages.show', compact('message'));
+            return view('admin.messages.show', compact('message'));
+        }
     }
 
     /**
