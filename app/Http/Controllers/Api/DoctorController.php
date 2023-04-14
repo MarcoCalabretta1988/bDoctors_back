@@ -206,6 +206,21 @@ class DoctorController extends Controller
     public function messageMail(Request $request)
     {
         $data = $request->all();
+        //take user
+        $validator = Validator::make(
+            $data,
+            [
+                'sender' => 'bail|required|email',
+                'subject' => 'bail|string',
+                'message' => 'bail|required|string',
+
+            ],
+
+
+        );
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
         $sender = $data['sender'];
         $subject = $data['subject'];
         $message = $data['message'];
