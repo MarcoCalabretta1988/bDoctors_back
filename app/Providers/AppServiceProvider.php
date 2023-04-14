@@ -23,16 +23,20 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(Gateway::class, function ($pp) {
             return new Gateway(
 
-
-
                 //!credenziali test braintree Marco
+                // [
+                //     'environment' => 'sandbox',
+                //     'merchantId' => 'y8rkq77b4hhyxp83',
+                //     'publicKey' => 'x2hmg6rjhwjccw8n',
+                //     'privateKey' => '96916fce579cf8453b19dabfe289ea70'
+                // ]
 
-
+                //!credenziali braintree daniele
                 [
                     'environment' => 'sandbox',
-                    'merchantId' => 'y8rkq77b4hhyxp83',
-                    'publicKey' => 'x2hmg6rjhwjccw8n',
-                    'privateKey' => '96916fce579cf8453b19dabfe289ea70'
+                    'merchantId' => 'b9tnhj4554d5x655',
+                    'publicKey' => 'pmrtm7bqzsrh7ytr',
+                    'privateKey' => 'fc995134a1ecea6344ad0a47acab4206'
                 ]
             );
         });
