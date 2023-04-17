@@ -249,14 +249,16 @@ class DoctorController extends Controller
         $doctors = Doctor::where('is_sponsored', true)->get(); // recupera tutti i medici sponsorizzati
 
         foreach ($doctors as $doctor) {
-            $sponsored_create = $doctor->sponsoreds()->first()->pivot->created_at; // cerca la correlazione della sponsorizzazione scaduta
-            $sponsored_id = $doctor->sponsoreds()->first()->pivot->sponsored_id;
-            $sponsored_day = Sponsored::where('id', $sponsored_id)->pluck('duration')->toArray();
-            $expire = $sponsored_create->addDays($sponsored_day['0'] / 24);
-            if ($now->gt($expire)) {
-                $doctor->sponsoreds()->detach($sponsored_id); // rimuove la correlazione
-                $doctor->is_sponsored = false; // imposta is_sponsored a false
-                $doctor->save();
+            if ($doctor->sponsoreds()->first()) {
+                $sponsored_create = $doctor->sponsoreds()->first()->pivot->created_at; // cerca la correlazione della sponsorizzazione scaduta
+                $sponsored_id = $doctor->sponsoreds()->first()->pivot->sponsored_id;
+                $sponsored_day = Sponsored::where('id', $sponsored_id)->pluck('duration')->toArray();
+                $expire = $sponsored_create->addDays($sponsored_day['0'] / 24);
+                if ($now->gt($expire)) {
+                    $doctor->sponsoreds()->detach($sponsored_id); // rimuove la correlazione
+                    $doctor->is_sponsored = false; // imposta is_sponsored a false
+                    $doctor->save();
+                }
             }
         }
     }
@@ -306,19 +308,8 @@ class DoctorController extends Controller
 
             if ($result->success) {
                 $doctor->is_sponsored = 1;
-                $duration = DB::table('sponsoreds')->where('id', $sponsored->id)->value('duration');
-                $start_at = Carbon::now(); // dynamic start date
-                $end_at = $start_at->copy()->addHours($duration); // calculate end date based on start date and sponsored duration in hours
-                $durationInDays = $start_at->diffInDays($end_at); // calculate duration in days
-                $start_at = $start_at->format('Y/m/d'); // format start date year/mounth/day
-                $end_at = $end_at->format('Y/m/d'); // format end date with year/mounth/day
-                $doctor->sponsoreds()->sync([
-                    $sponsored->id => [
-                        'start_at' => $start_at,
-                        'end_at' => $end_at,
-                    ]
-                ]);
                 $doctor->save();
+                $doctor->sponsoreds()->sync([$doctor->id]);
                 return to_route('admin.doctors.index')->with('type', 'success')->with('msg', 'Transazione Eseguita con successo');
             } else {
 
