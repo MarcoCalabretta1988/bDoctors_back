@@ -294,6 +294,7 @@ class DoctorController extends Controller
                     ]
                 ]);
                 $doctor->save();
+
                 return to_route('admin.doctors.index')->with('type', 'success')->with('msg', 'Transazione Eseguita con successo');
             } else {
 
