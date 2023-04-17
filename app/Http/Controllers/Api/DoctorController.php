@@ -24,7 +24,7 @@ class DoctorController extends Controller
     public function index()
     {
 
-        $doctors = Doctor::orderBy('updated_at', 'DESC')->with('review', 'votes', 'sponsoreds', 'specializations', 'user')->get();
+        $doctors = Doctor::orderBy('is_sponsored', 'DESC')->with('review', 'votes', 'sponsoreds', 'specializations', 'user')->get();
 
         return response()->json($doctors);
     }
