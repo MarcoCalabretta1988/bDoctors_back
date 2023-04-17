@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MessageMail;
 use App\Models\Message;
+use App\Models\Sponsored;
+use Carbon\Carbon;
 
 class DoctorController extends Controller
 {
@@ -23,7 +25,7 @@ class DoctorController extends Controller
      */
     public function index()
     {
-
+        $this->expired_sponsored();
         $doctors = Doctor::orderBy('is_sponsored', 'DESC')->with('review', 'votes', 'sponsoreds', 'specializations', 'user')->get();
 
         return response()->json($doctors);
@@ -240,5 +242,25 @@ class DoctorController extends Controller
         $new_message->doctor_id = $doctor_id;
         $new_message->save();
         return response(null, 204);
+    }
+
+
+    public function expired_sponsored()
+    {
+
+        $now = Carbon::now(); // recupera l'ora corrente
+        $doctors = Doctor::where('is_sponsored', true)->get(); // recupera tutti i medici sponsorizzati
+
+        foreach ($doctors as $doctor) {
+            $sponsored_create = $doctor->sponsoreds()->first()->pivot->created_at; // cerca la correlazione della sponsorizzazione scaduta
+            $sponsored_id = $doctor->sponsoreds()->first()->pivot->sponsored_id;
+            $sponsored_day = Sponsored::where('id', $sponsored_id)->pluck('duration')->toArray();
+            $expire = $sponsored_create->addDays($sponsored_day['0'] / 24);
+            if ($now->gt($expire)) {
+                $doctor->sponsoreds()->detach($sponsored_id); // rimuove la correlazione
+                $doctor->is_sponsored = false; // imposta is_sponsored a false
+                $doctor->save();
+            }
+        }
     }
 }

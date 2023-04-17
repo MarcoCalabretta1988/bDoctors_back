@@ -11,7 +11,6 @@ class Sponsored extends Model
     protected $fillable = ['cost', 'duration', 'name'];
     public function doctors()
     {
-        return $this->belongsToMany(Doctor::class)->withPivot('end_at', 'start_at')
-            ->withTimestamps();
+        return $this->belongsToMany(Doctor::class)->withTimestamps();
     }
 }
