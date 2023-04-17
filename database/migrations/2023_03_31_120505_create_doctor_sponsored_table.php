@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('doctor_id')->constrained()->onDelete('cascade');
             $table->foreignId('sponsored_id')->constrained()->onDelete('cascade');
-            $table->date('start_at');
-            $table->date('end_at');
             $table->timestamps();
         });
     }
