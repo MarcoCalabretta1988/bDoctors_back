@@ -25,8 +25,8 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $this->expired_sponsored();
         $doctors = Doctor::orderBy('is_sponsored', 'DESC')->with('review', 'votes', 'sponsoreds', 'specializations', 'user')->get();
+        $this->expired_sponsored();
 
         return response()->json($doctors);
     }
@@ -252,16 +252,15 @@ class DoctorController extends Controller
         $doctors = Doctor::where('is_sponsored', true)->get(); // recupera tutti i medici sponsorizzati
 
         foreach ($doctors as $doctor) {
-            if ($doctor->sponsoreds()->first()) {
-                $sponsored_create = $doctor->sponsoreds()->first()->pivot->created_at; // cerca la correlazione della sponsorizzazione scaduta
-                $sponsored_id = $doctor->sponsoreds()->first()->pivot->sponsored_id;
-                $sponsored_day = Sponsored::where('id', $sponsored_id)->pluck('duration')->toArray();
-                $expire = $sponsored_create->addDays($sponsored_day['0'] / 24);
-                if ($now->gt($expire)) {
-                    $doctor->sponsoreds()->detach($sponsored_id); // rimuove la correlazione
-                    $doctor->is_sponsored = false; // imposta is_sponsored a false
-                    $doctor->save();
-                }
+
+            $sponsored_create = $doctor->sponsoreds()->first()->pivot->created_at; // cerca la correlazione della sponsorizzazione scaduta
+            $sponsored_id = $doctor->sponsoreds()->first()->pivot->sponsored_id;
+            $sponsored_day = Sponsored::where('id', $sponsored_id)->pluck('duration')->toArray();
+            $expire = $sponsored_create->addDays($sponsored_day['0'] / 24);
+            if ($now->gt($expire)) {
+                $doctor->sponsoreds()->detach($sponsored_id); // rimuove la correlazione
+                $doctor->is_sponsored = false; // imposta is_sponsored a false
+                $doctor->save();
             }
         }
     }
