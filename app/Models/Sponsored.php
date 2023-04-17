@@ -12,6 +12,6 @@ class Sponsored extends Model
     public function doctors()
     {
         return $this->belongsToMany(Doctor::class)->withPivot('end_at', 'start_at')
-            ->withTimestamps();;
+            ->withTimestamps();
     }
 }

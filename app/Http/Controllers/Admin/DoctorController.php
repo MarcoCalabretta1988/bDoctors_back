@@ -235,22 +235,8 @@ class DoctorController extends Controller
         return view('admin.doctors.paymentForm', compact('sponsorization', 'data'));
     }
 
-    public function expired_sponsored()
-    {
-        $now = Carbon::now(); // recupera l'ora corrente
-        $doctors = Doctor::where('is_sponsored', true)->get(); // recupera tutti i medici sponsorizzati
 
-        foreach ($doctors as $doctor) {
-            $pivot = $doctor->sponsoreds()->where('doctor_id', $doctor->id)->first()->pivot->end_at; // cerca la correlazione della sponsorizzazione scaduta
-            $end = Carbon::tomorrow();
-            dd($pivot);
-            if ($now->gt($end)) {
-                $doctor->sponsoreds()->detach($doctor->id); // rimuove la correlazione
-                $doctor->is_sponsored = false; // imposta is_sponsored a false
-                $doctor->save();
-            }
-        }
-    }
+
     public function makePayment(OrderRequest $request, Gateway $gateway)
     {
 
