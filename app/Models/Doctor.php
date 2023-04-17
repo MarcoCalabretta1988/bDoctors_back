@@ -38,8 +38,7 @@ class Doctor extends Model
 
     public function votes()
     {
-        return $this->belongsToMany(Vote::class)->withPivot('end_at', 'start_at')
-            ->withTimestamps();
+        return $this->belongsToMany(Vote::class)->withTimestamps();
     }
     //corelations many to many sponsoreds
     public function sponsoreds()
