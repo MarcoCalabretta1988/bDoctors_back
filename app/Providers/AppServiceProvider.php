@@ -32,11 +32,19 @@ class AppServiceProvider extends ServiceProvider
                 // ]
 
                 //!credenziali braintree daniele
+                // [
+                //  'environment' => 'sandbox',
+                //   'merchantId' => 'b9tnhj4554d5x655',
+                //   'publicKey' => 'pmrtm7bqzsrh7ytr',
+                //   'privateKey' => 'fc995134a1ecea6344ad0a47acab4206'
+                // ]
+
+                //!credenziali braintree Pino
                 [
                     'environment' => 'sandbox',
-                    'merchantId' => 'b9tnhj4554d5x655',
-                    'publicKey' => 'pmrtm7bqzsrh7ytr',
-                    'privateKey' => 'fc995134a1ecea6344ad0a47acab4206'
+                    'merchantId' => 'jfry7pjmf4w5x83c',
+                    'publicKey' => 'bxtqm8mxzgccb8s4',
+                    'privateKey' => '4facd4b285ec5672ff2f400e8b739fef'
                 ]
             );
         });
