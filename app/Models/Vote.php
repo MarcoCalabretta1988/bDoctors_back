@@ -11,7 +11,6 @@ class Vote extends Model
     protected $fillable = ['lable', 'color'];
     public function doctors()
     {
-        return $this->belongsToMany(Doctor::class)->withPivot('end_at', 'start_at')
-            ->withTimestamps();
+        return $this->belongsToMany(Doctor::class)->withTimestamps();
     }
 }

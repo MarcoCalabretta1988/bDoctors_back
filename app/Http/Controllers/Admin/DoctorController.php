@@ -29,6 +29,7 @@ class DoctorController extends Controller
      */
     public function index()
     {
+        $this->expired_sponsored();
         $doctor = Auth::user()->doctor;
         $name = Auth::user()->name;
         $specializations = Auth::user()->doctor->specializations->toArray();
@@ -241,7 +242,24 @@ class DoctorController extends Controller
         return view('admin.doctors.paymentForm', compact('sponsorization', 'data'));
     }
 
+    public function expired_sponsored()
+    {
 
+        $now = Carbon::now(); // recupera l'ora corrente
+        $doctors = Doctor::where('is_sponsored', true)->get(); // recupera tutti i medici sponsorizzati
+
+        foreach ($doctors as $doctor) {
+            $sponsored_create = $doctor->sponsoreds()->first()->pivot->created_at; // cerca la correlazione della sponsorizzazione scaduta
+            $sponsored_id = $doctor->sponsoreds()->first()->pivot->sponsored_id;
+            $sponsored_day = Sponsored::where('id', $sponsored_id)->pluck('duration')->toArray();
+            $expire = $sponsored_create->addDays($sponsored_day['0'] / 24);
+            if ($now->gt($expire)) {
+                $doctor->sponsoreds()->detach($sponsored_id); // rimuove la correlazione
+                $doctor->is_sponsored = false; // imposta is_sponsored a false
+                $doctor->save();
+            }
+        }
+    }
 
     public function makePayment(OrderRequest $request, Gateway $gateway)
     {
