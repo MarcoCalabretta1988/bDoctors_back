@@ -19,7 +19,7 @@
                    <ul>
                        <li class="flex">
                            <span><i class="fa-regular fa-clock"></i></span> 
-                           <span>{{$sponsored->duration}} Ore</span>
+                           <span>{{$sponsored->duration == 1 ? '24': $sponsored->duration /60}} Ore</span>
                        </li>
                        <li class="flex">
                         <span><i class="fa-solid fa-money-bill-wave"></i></span> 
