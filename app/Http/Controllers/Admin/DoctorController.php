@@ -253,7 +253,7 @@ class DoctorController extends Controller
                 $sponsored_create = $doctor->sponsoreds()->first()->pivot->created_at; // cerca la correlazione della sponsorizzazione scaduta
                 $sponsored_id = $doctor->sponsoreds()->first()->pivot->sponsored_id;
                 $sponsored_day = Sponsored::where('id', $sponsored_id)->pluck('duration')->toArray();
-                $expire = $sponsored_create->addDays($sponsored_day['0'] / 24);
+                $expire = $sponsored_create->addMinute($sponsored_day['0']);
                 if ($now->gt($expire)) {
                     $doctor->sponsoreds()->detach($sponsored_id); // rimuove la correlazione
                     $doctor->is_sponsored = false; // imposta is_sponsored a false

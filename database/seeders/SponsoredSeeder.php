@@ -16,17 +16,17 @@ class SponsoredSeeder extends Seeder
         $sponsoreds = [
             [
                 'cost' => 2, 99, //euro
-                'duration' => "24", //ore
+                'duration' => "1", //minuto
                 'name' => "Basic"
             ],
             [
                 'cost' => 5, 99, //euro
-                'duration' => "72", //ore
+                'duration' => "4320", //minuti
                 'name' => "Standard"
             ],
             [
                 'cost' => 9, 99, //euro
-                'duration' => "144", //ore
+                'duration' => "8640", //minuti
                 'name' => "Pro"
             ]
         ];
