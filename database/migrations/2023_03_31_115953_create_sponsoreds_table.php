@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sponsoreds', function (Blueprint $table) {
             $table->id();
             $table->decimal('cost', 6, 2); //decimal per i pagamenti, come ha detto il tizio in chiamata zoom 
-            $table->string('duration'); //intesa come data di scadenza
+            $table->string('duration'); //intesa come data di scadenza in minuti
             $table->string('name', 50);
             $table->timestamps();
         });
