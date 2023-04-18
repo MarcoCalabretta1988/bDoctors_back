@@ -15,14 +15,41 @@ class UserSeeder extends Seeder
      */
     public function run(Generator $faker): void
     {
+        $users = [
+            [
+
+                'name' => 'Daniele Tuttolani',
+                'email' => 'daniele@email.it',
+            ],
+            [
+                'name' => 'Marco Calabretta',
+                'email' => 'marco@email.it',
+            ],
+            [
+
+                'name' => 'Pino Macrì',
+                'email' => 'pino@email.it',
+            ],
+            [
+
+                'name' => 'Andrea Garofalo',
+                'email' => 'andrea@email.it',
+            ],
+            [
+
+                'name' => 'Sebastian Ivaniczki',
+                'email' => 'sebastian@email.it',
+            ],
+
+        ];
         $doctor = Doctor::all();
-        for ($i = 0; $i < 5; $i++) {
+        foreach ($users as $lap => $i) {
             $user = new User();
 
-            $user->name =  $faker->name();
-            $user->email = $faker->email();
+            $user->name = $i['name'];
+            $user->email = $i['email'];
             $user->password = bcrypt('password');
-            $user->doctor_id = $doctor[$i]->id;
+            $user->doctor_id = $doctor[$lap]->id;
             $user->save();
         }
     }
