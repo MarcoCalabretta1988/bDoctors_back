@@ -137,7 +137,7 @@ class DoctorController extends Controller
     public function edit(Doctor $doctor)
     {
         if (Auth::user()->doctor->id != $doctor->id) {
-            return to_route('admin.doctors.index')->with('type', 'danger')->with('msg', 'ATTENZIONE!! Utente non autorizzato a modificare profili non propri');
+            return to_route('admin.doctors.index')->with('type', 'danger')->with('msg', 'OPERAZIONE NON AUTORIZZATA!');
         } else {
 
             $sponsoreds = Sponsored::all();

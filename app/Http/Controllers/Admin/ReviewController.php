@@ -43,7 +43,7 @@ class ReviewController extends Controller
     public function show(Review $review)
     {
         if (Auth::user()->doctor->id != $review->doctor_id) {
-            return to_route('admin.reviews.index')->with('type', 'danger')->with('msg', 'ATTENZIONE!! Utente non autorizzato a vedere recensioni non proprie');
+            return to_route('admin.reviews.index')->with('type', 'danger')->with('msg', 'OPERAZIONE NON AUTORIZZATA!');
         } else {
             $review->is_read = true;
             $review->save();
